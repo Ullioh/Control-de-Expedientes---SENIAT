@@ -1,8 +1,6 @@
 <html lang="en">
 
-<head>
   <?php include_once "bin/component/head.php";?>
-</head>
 
 <body>
 	
@@ -115,10 +113,6 @@
 
 </body>
 
-<footer>
-	
 	<?php include_once "bin/component/footer.php";?>
-
-</footer>
 
 </html>
