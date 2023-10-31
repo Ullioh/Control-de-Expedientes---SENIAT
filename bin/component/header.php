@@ -1,7 +1,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center" >
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="?pagina=Principal" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none text-white d-lg-block">SENIAT</span>
       </a>
@@ -38,7 +38,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="?pagina=Perfil">
                 <i class="bi bi-person"></i>
                 <span>Mi Perfil</span>
               </a>
@@ -46,17 +46,6 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Configuraciones</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
             <li>
               <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
                 <i class="bi bi-question-circle"></i>

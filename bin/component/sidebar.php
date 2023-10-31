@@ -5,53 +5,52 @@
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-        <a class="nav-link " href="index.php">
+        <a class="nav-link " href="?pagina=Principal">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>Control General</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.php">
+        <a class="nav-link collapsed" href="?pagina=Perfil">
           <i class="bi bi-person"></i>
-          <span>Profile</span>
+          <span>Mi Perfil</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="tables-data.html">
-          <i class="bi bi bi-layout-text-window-reverse"></i><span>Tables</span>
+        <a class="nav-link collapsed"  href="?pagina=RegistroExpediente">
+          <i class="bi bi bi-layout-text-window-reverse"></i><span>Estado de Expedientes</span>
         </a>
       </i><!-- End Tables Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
+        <a class="nav-link collapsed" href="?pagina=Contactos">
           <i class="bi bi-envelope"></i>
-          <span>Contact</span>
+          <span>Contactos</span>
         </a>
       </li><!-- End Contact Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
-        </a>
-      </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="?pagina=Login">
           <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
+          <span>Iniciar sesion</span>
         </a>
       </li><!-- End Login Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
+        <a class="nav-link collapsed" href="?pagina=RegistroUsuario">
+          <i class="bi bi-card-list"></i>
+          <span>Registrar</span>
+        </a>
+      </li><!-- End Register Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="?pagina=Error404">
           <i class="bi bi-dash-circle"></i>
           <span>Error 404</span>
         </a>
       </li><!-- End Error 404 Page Nav -->
-
     </ul>
   </aside><!-- End Sidebar-->

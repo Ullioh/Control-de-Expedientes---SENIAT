@@ -1,0 +1,24 @@
+{
+    "name": "sistema_medico/bin",
+    "description": "Sistema Médico",
+    "type": "project",
+    "require": {
+        "php": "^7.3",
+        "setasign/fpdf": "^1.8"
+    },
+    "license": "001",
+    "autoload": {
+        "psr-4": {
+           "bin\\" : "bin/",
+           "component\\" : "bin/component/",
+           "config\\" : "bin/config/",
+           "modelo\\" : "bin/modelo/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Estudiantes PNF en informática"
+        }
+    ],
+    "minimum-stability": "beta"
+}
