@@ -2,7 +2,7 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-heading">Pages</li>
+      <li class="nav-heading">Paginas</li>
 
       <li class="nav-item">
         <a class="nav-link " href="?pagina=Principal">
@@ -25,6 +25,20 @@
         </a>
       </i><!-- End Tables Nav -->
 
+            <li class="nav-item">
+        <a class="nav-link collapsed"  href="?pagina=TablaUsuario">
+          <i class="ri-file-user-line"></i><span>Estado de Usuarios</span>
+        </a>
+      </i><!-- End Tables Nav -->
+
+            <li class="nav-item">
+        <a class="nav-link collapsed" href="?pagina=Permisos">
+          <i class="ri-archive-drawer-line"></i>
+          <span>Permisos</span>
+        </a>
+      </li><!-- End Contact Page Nav -->
+
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="?pagina=Contactos">
           <i class="bi bi-envelope"></i>
@@ -38,13 +52,6 @@
           <span>Iniciar sesion</span>
         </a>
       </li><!-- End Login Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="?pagina=RegistroUsuario">
-          <i class="bi bi-card-list"></i>
-          <span>Registrar</span>
-        </a>
-      </li><!-- End Register Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="?pagina=Error404">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 01-11-2023 a las 16:28:00
+-- Tiempo de generación: 06-11-2023 a las 14:01:36
 -- Versión del servidor: 8.0.35-0ubuntu0.22.04.1
 -- Versión de PHP: 8.1.2-1ubuntu2.14
 
@@ -48,6 +48,17 @@ CREATE TABLE `division` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `entorno_sistema`
+--
+
+CREATE TABLE `entorno_sistema` (
+  `id` int NOT NULL,
+  `nombre` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `estado_expediente`
 --
 
@@ -83,7 +94,8 @@ CREATE TABLE `permiso` (
   `solicitar` varchar(40) NOT NULL,
   `ver` varchar(40) NOT NULL,
   `editar` varchar(40) NOT NULL,
-  `id_rol` int NOT NULL
+  `id_rol` int NOT NULL,
+  `id_entorno` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -108,8 +120,9 @@ CREATE TABLE `user` (
   `cedula_user` int NOT NULL,
   `nombre_user` varchar(40) NOT NULL,
   `id_area` int NOT NULL,
-  `id_permiso` int NOT NULL,
-  `id_expedientes` int NOT NULL
+  `id_rol` int NOT NULL,
+  `id_expedientes` int NOT NULL,
+  `password` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -142,6 +155,12 @@ ALTER TABLE `division`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `entorno_sistema`
+--
+ALTER TABLE `entorno_sistema`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `estado_expediente`
 --
 ALTER TABLE `estado_expediente`
@@ -159,7 +178,8 @@ ALTER TABLE `expedientes`
 --
 ALTER TABLE `permiso`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_rol` (`id_rol`);
+  ADD KEY `id_rol` (`id_rol`),
+  ADD KEY `id_entorno` (`id_entorno`);
 
 --
 -- Indices de la tabla `rol`
@@ -173,8 +193,8 @@ ALTER TABLE `rol`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_area` (`id_area`),
-  ADD KEY `id_permiso` (`id_permiso`),
-  ADD KEY `id_expedientes` (`id_expedientes`);
+  ADD KEY `id_expedientes` (`id_expedientes`),
+  ADD KEY `id_rol` (`id_rol`) USING BTREE;
 
 --
 -- Indices de la tabla `userXexpediente`
@@ -198,6 +218,12 @@ ALTER TABLE `area`
 -- AUTO_INCREMENT de la tabla `division`
 --
 ALTER TABLE `division`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `entorno_sistema`
+--
+ALTER TABLE `entorno_sistema`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
@@ -256,14 +282,15 @@ ALTER TABLE `expedientes`
 -- Filtros para la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  ADD CONSTRAINT `fk_permisosrol` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id`);
+  ADD CONSTRAINT `permiso_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id`),
+  ADD CONSTRAINT `permiso_ibfk_2` FOREIGN KEY (`id_entorno`) REFERENCES `entorno_sistema` (`id`);
 
 --
 -- Filtros para la tabla `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `fk_permisos` FOREIGN KEY (`id_permiso`) REFERENCES `permiso` (`id`),
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_area`) REFERENCES `area` (`id`);
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_area`) REFERENCES `area` (`id`),
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id`);
 
 --
 -- Filtros para la tabla `userXexpediente`
