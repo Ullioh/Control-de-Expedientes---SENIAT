@@ -3,34 +3,34 @@ namespace modelo;
 use config\connect\connectDB as connectDB;
 class loginModelo extends connectDB
 {
-    private $nombreapellido;
-    private $email;
+/*     private $nombreapellido;
+    private $email; */
     private $user;
     private $password;
     public function set_user($valor)
     {
         $this->user = $valor;
     }
-    public function set_email($valor)
+/*     public function set_email($valor)
     {
         $this->email = $valor;
-    }
-    public function set_nombreapellido($valor)
+    } */
+/*     public function set_nombreapellido($valor)
     {
         $this->nombreapellido = $valor;
-    }
+    } */
     public function set_password($valor)
     {
         $this->password = $valor;
     }
-    public function get_user()
+/*     public function get_user()
     {
         return $this->user;
     }
     public function get_password()
     {
         return $this->password;
-    }
+    } */
 
     public function registrarU()
     {
@@ -59,7 +59,7 @@ class loginModelo extends connectDB
     }
     public function verificarU()
     {
-        $resultado = $this->conex->prepare("SELECT  * FROM usuarios WHERE cedula ='$this->user' AND clave ='$this->password'");
+        $resultado = $this->conex->prepare("SELECT * FROM user WHERE cedula_user ='$this->user' AND password ='$this->password'");
         try {
             $resultado->execute();
             $respuesta1 = $resultado->rowCount();

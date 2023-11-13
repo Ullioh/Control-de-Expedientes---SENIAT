@@ -31,7 +31,7 @@ CREATE TABLE `area` (
   `id` int NOT NULL,
   `nombrearea` int NOT NULL,
   `id_division` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -42,8 +42,8 @@ CREATE TABLE `area` (
 CREATE TABLE `division` (
   `id` int NOT NULL,
   `id_division` int NOT NULL,
-  `nombrediv` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nombrediv` varchar(80) CHARACTER SET utf8mb4
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -54,7 +54,7 @@ CREATE TABLE `division` (
 CREATE TABLE `entorno_sistema` (
   `id` int NOT NULL,
   `nombre` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -65,7 +65,7 @@ CREATE TABLE `entorno_sistema` (
 CREATE TABLE `estado_expediente` (
   `id` int NOT NULL,
   `estado_exp` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -75,12 +75,12 @@ CREATE TABLE `estado_expediente` (
 
 CREATE TABLE `expedientes` (
   `id` int NOT NULL,
-  `NroProvi` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `NroProvi` varchar(40) CHARACTER SET utf8mb4,
   `sujetoP` varchar(40) NOT NULL,
   `RifSP` varchar(12) NOT NULL,
   `DomicilioFiscal` varchar(100) NOT NULL,
   `id_estado_expedientes` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -96,7 +96,7 @@ CREATE TABLE `permiso` (
   `editar` varchar(40) NOT NULL,
   `id_rol` int NOT NULL,
   `id_entorno` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -107,7 +107,7 @@ CREATE TABLE `permiso` (
 CREATE TABLE `rol` (
   `id` int NOT NULL,
   `nombrerol` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -123,7 +123,7 @@ CREATE TABLE `user` (
   `id_rol` int NOT NULL,
   `id_expedientes` int NOT NULL,
   `password` varchar(12) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -135,7 +135,7 @@ CREATE TABLE `userXexpediente` (
   `id` int NOT NULL,
   `id_user` int NOT NULL,
   `id_expediente` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Índices para tablas volcadas

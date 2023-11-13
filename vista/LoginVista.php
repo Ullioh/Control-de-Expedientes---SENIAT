@@ -29,20 +29,20 @@
                     <p class="text-center small">Ingrese su Correo y Contraseña</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <div class="row g-3">
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Correo</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Por favor, ingrese su Correo.</div>
+                        <input type="text" name="username" class="form-control" id="user">
+                        <spam id="spam1" class="text-danger"></spam>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Contraseña</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Por favor, ingrese su Contraseña</div>
+                      <input type="password" name="password" class="form-control" id="contrasena">
+                      <spam id="spam2" class="text-danger"></spam>
                     </div>
 
                     <div class="col-12">
@@ -50,9 +50,9 @@
                       </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Iniciar Sesión</button>
+                      <button class="btn btn-primary w-100" id="entrasystem" >Iniciar Sesión</button>
                     </div>
-                  </form>
+</div>
 
                 </div>
               </div>
@@ -68,18 +68,19 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+  <script src="assets/js/jquery-3.6.3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="content/js/Login.js"></script>
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+ <!--  <script src="assets/vendor/chart.js/chart.umd.js"></script> -->
   <script src="assets/vendor/echarts/echarts.min.js"></script>
   <script src="assets/vendor/quill/quill.min.js"></script>
   <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
 
 </body>
 
