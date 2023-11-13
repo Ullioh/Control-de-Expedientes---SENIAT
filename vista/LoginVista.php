@@ -26,13 +26,13 @@
 
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Iniciar Sesión</h5>
-                    <p class="text-center small">Ingrese su Correo y Contraseña</p>
+                    <p class="text-center small">Ingrese su Cedula y Contraseña</p>
                   </div>
 
                   <div class="row g-3">
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Correo</label>
+                      <label for="yourUsername" class="form-label">Cedula</label>
                       <div class="input-group has-validation">
                         <input type="text" name="username" class="form-control" id="user">
                         <spam id="spam1" class="text-danger"></spam>
