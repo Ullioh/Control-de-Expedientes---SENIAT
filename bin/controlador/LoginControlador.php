@@ -1,10 +1,10 @@
 <?php
 use modelo\LoginModelo as Login;
 use config\componentes\configSistema as configSistema;
+session_start();
 
 $config = new configSistema;
 $login = new Login;
-
 if (!is_file($config->_Dir_Model_().$pagina.$config->_MODEL_())) {
     echo "Falta definir la clase " . $pagina;
     exit;
@@ -22,6 +22,10 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
             $login->set_password($clave);
             $responseU = $login->verificarU();
             if($responseU == true){
+                $infoU = $login->datos_UserU();
+                foreach ($infoU as $datos) {
+                    $_SESSION['usuario'] = array('id' => $datos['id'], 'nombre_apellido' => $datos['nombre_user'], 'id_area' => $datos['id_area'], 'nombre_rol' => $datos['nombre_rol'], 'password' => $datos['password']);
+                }
                 echo json_encode([
                     'estatus' => '1',
                     'icon' => 'success',
@@ -67,6 +71,8 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
                 return 0;
             }
         }
+    }else {
+        session_destroy();
     }
    
     require_once "vista/" . $pagina . "Vista.php";

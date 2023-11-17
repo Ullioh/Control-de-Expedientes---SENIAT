@@ -73,6 +73,19 @@ class loginModelo extends connectDB
         }
     }
 
+    public function datos_UserU()
+    {
+        $resultado = $this->conex->prepare("SELECT * FROM user WHERE cedula_user ='$this->user' AND password ='$this->password'");
+        try {
+            $resultado->execute();
+            $respuestaArreglo = $resultado->fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return $respuestaArreglo;
+    }
+
+
     public function validar_registro($cedula)
     {
         try {
