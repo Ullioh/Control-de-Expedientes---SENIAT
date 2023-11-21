@@ -1,5 +1,5 @@
 var keyup_cedula = /^[0-9]{7,8}$/;
-var keyup_nombre = /^(([A-ZÁÉÍÓÚ]+[a-zñáéíóú.,-]*[\s]?)*)$/;
+var keyup_nombre = /^(([A-ZÁÉÍÓÚ]+[a-zñáéíóú.,-]*[\s]?){2,30})$/;
 var keyup_apellido = /^[A-ZÁÉÍÓÚ][a-zñáéíóú\s]{2,30}$/;
 var keyup_genero = /^[A-ZÁÉÍÓÚ][a-zñáéíóú]{7,8}$/;
 var keyup_telefono = /^[0-9]{11}$/;
@@ -184,26 +184,21 @@ function carga() {
   document.getElementById("enviar").onclick = function () {
     a = valida_registrar();
     if (a != "") {
-    }else if(document.getElementById("yourPassword").value == document.getElementById("yourPassword1").value){
+    }else if(document.getElementById("yourPassword").value != document.getElementById("yourPassword1").value){
       document.getElementById("syourPassword").innerText = "la clave no coincide";
       document.getElementById("syourPassword").style.color = "red";
-      document.getElementById("syourPassword").classList.add("is-invalid");
+      document.getElementById("yourPassword").classList.add("is-invalid");
     } else {
       document.getElementById("syourPassword").innerText = "";
-      document.getElementById("syourPassword").classList.remove("is-invalid", "is-valid");
+      document.getElementById("yourPassword").classList.remove("is-invalid", "is-valid");
       var datos = new FormData();
-      datos.append("accion", $("#accion").val());
-      datos.append("cedula", $("#cedula").val());
       datos.append("id", $("#id").val());
-      datos.append("primer_nombre", $("#primer_nombre").val());
-      datos.append("segundo_nombre", $("#segundo_nombre").val());
-      datos.append("primer_apellido", $("#primer_apellido").val());
-      datos.append("segundo_apellido", $("#segundo_apellido").val());
-      datos.append("genero", $("#genero").val());
-      datos.append("correo", $("#correo").val());
-      datos.append("telefono", $("#telefono").val());
-      datos.append("direccion", $("#direccion").val());
-      datos.append("id_rol", $("#rol").val());
+      datos.append("accion", $("#accion").val());
+      datos.append("cedula", $("#yourCedula").val());
+      datos.append("nombre_apellido", $("#yourName").val());
+      datos.append("password", $("#yourPassword").val());
+      datos.append("cargo", $("#AddFiscal").val());
+      datos.append("area", $("#area").val());
       enviaAjax(datos);
     }
   };
@@ -387,7 +382,6 @@ function eliminar(id) {
         var datos = new FormData();
         datos.append("accion", "eliminar");
         datos.append("id", id);
-        datos.append("cedula", $("#idusuario-"+id).val());
         enviaAjax(datos);
       }, 10);
     }

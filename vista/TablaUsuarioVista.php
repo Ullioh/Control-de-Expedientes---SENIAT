@@ -50,10 +50,33 @@
                   </div>
 
                     <div class="col-12">
-                      <label for="yourName" class="form-label">Nombre</label>
+                      <label for="yourName" class="form-label">Nombre y Apellido</label>
                       <input type="text" name="name" class="form-control" id="yourName" required>
                       <spam id="syourName"></spam>
                     </div>
+                    
+                    <div class="col-12">
+                      <label for="DomiciFi" class="form-label">Asignar cargo</label>
+                      <select class="form-control" id="AddFiscal">
+                        <option value="0">--Seleccione--</option>
+                        <option value="Super Usuario">Super Usuario</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Fiscal">Fiscal</option>
+                      </select>
+                      <spam id="sAddFiscal"></spam>
+                  	</div>
+                    
+                    <div class="col-12">
+                    <label for="DomiciFi" class="form-label">Asignar Area</label>
+                    <select class="form-control form-select" id="area" name="area">
+                        <option value="0">--Seleccione--</option>
+                        <?php foreach ($r2 as $key => $value) {?>
+                        <option value="<?=$value['id'];?>"> <?php echo $value['nombrearea']; ?>
+                        </option>
+                        <?php }?>
+                    </select>
+                    <spam id="sarea"></spam>
+                  	</div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Contraseña</label>
@@ -66,29 +89,6 @@
                       <input type="password" name="password1" class="form-control" id="yourPassword1" required>
                       <spam id="syourPassword1"></spam>
                     </div>
-
-                    <div class="col-12">
-                    <label for="DomiciFi" class="form-label">Asignar cargo</label>
-                    <select class="form-control" id="AddFiscal">
-                      <option value="0">--Seleccione--</option>
-                      <option value="Super Usuario">Super Usuario</option>
-                      <option value="Administrador">Administrador</option>
-                      <option value="Fiscal">Fiscal</option>
-                    </select>
-                    <spam id="sAddFiscal"></spam>
-                  	</div>
-
-                  	 <div class="col-12">
-                    <label for="DomiciFi" class="form-label">Asignar Area</label>
-                    <select class="form-control form-select" id="area" name="area">
-                        <option value="0">--Seleccione--</option>
-                        <?php foreach ($r2 as $key => $value) {?>
-                        <option value="<?=$value['id'];?>"> <?php echo $value['nombrearea']; ?>
-                        </option>
-                        <?php }?>
-                    </select>
-                    <spam id="sarea"></spam>
-                  	</div>
 
                     </div>
                      <div class="modal-footer">
@@ -111,7 +111,6 @@
               <table id="funcionpaginacion" class="table datatable">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Cedula</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Cargo</th>
@@ -123,15 +122,14 @@
                 <tbody>
                   <tr>
                   <?php foreach ($r1 as $valor) {?>
-                    <td><?php echo $valor['id']; ?></td>
                     <td> <?php echo $valor['cedula_user']; ?></td>
                     <td> <?php echo $valor['nombre_user']; ?></td>
                     <td> <?php echo $valor['nombre_rol']; ?></td>
                     <td> <?php echo $valor['nombrearea']; ?></td>
                     <td> <?php echo $valor['nombrediv']; ?></td>
-                    <td>  <button type="button" class="btn btn-primary ri-mark-pen-line" data-bs-toggle="modal" data-bs-target="#staticBackdrop1"> 
+                    <td>  <button type="button" class="btn btn-primary ri-mark-pen-line" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onclick="cargar_datos(<?=$valor['id_usuario'];?>);"> 
                           </button>
-                          <button type="button" class="btn btn-danger ri-chat-delete-fill"> 
+                          <button type="button" class="btn btn-danger ri-chat-delete-fill" onclick="eliminar(<?=$valor['id_usuario'];?>);"> 
                           </button> 
                     </td>
                   </tr>
@@ -141,73 +139,6 @@
               <!-- End Table with stripped rows -->
              </div>
             </div>
-                         
-
-            <!-- Modal Editar Usuario -->
-        <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-scrollable">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuario</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-
-
-                <form class="row g-3 needs-validation" novalidate>
-                    <div class="col-12">
-                      <label for="yourName" class="form-label">Nombre</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Por Favor, Ingresa un nombre!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourCedula" class="form-label">Cedula</label>
-                      <input type="text" name="cedula" class="form-control" id="yourCedula" required>
-                      <div class="invalid-feedback">Por Favor, Ingresa un Correo!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Contraseña</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Por Favor, Ingresa una contraseña!</div>
-                    </div>
-                    <div class="col-12">
-                    <label for="DomiciFi" class="form-label">Asignar cargo</label>
-                    <select class="form-control" id="AddFiscal">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
-                  	</div>
-
-                  	 <div class="col-12">
-                    <label for="DomiciFi" class="form-label">Asignar Area</label>
-                    <select class="form-control" id="AddFiscal">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
-                  	</div>
-
-                   </div>
-                     <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Editar Usuario</button>
-                    </div>
-                  </form>
-
-
-                  </div>
-                </div>
-              </div>
-        </div>
-
-           
 
             </div>
           </div>

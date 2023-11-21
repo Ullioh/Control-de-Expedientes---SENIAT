@@ -16,6 +16,50 @@ if (!is_file($config->_Dir_Model_().$pagina.$config->_MODEL_())) {
 
 if (is_file("vista/" . $pagina . "Vista.php")) {
 
+    if (isset($_POST['accion'])) {
+        $accion = $_POST['accion'];
+        $modulo = 'Usuario:';
+    if ($accion == 'registrar') {
+        $response = $usuario->registrarU($_POST['cedula'],$_POST['nombre_apellido'],$_POST['password'],$_POST['cargo'],$_POST['area']);
+        if ($response["resultado"]==1) {
+            echo json_encode([
+                'estatus' => '1',
+                'icon' => 'success',
+                'title' => $modulo,
+                'message' => $response["mensaje"]
+            ]);
+            return 0;
+        }else{
+            echo json_encode([
+                'estatus' => '2',
+                'icon' => 'error',
+                'title' => $modulo,
+                'message' => $response["mensaje"]
+            ]);
+            return 0;
+        }
+        exit;
+    }else if ($accion == 'eliminar') {
+        $response = $usuario->eliminar($_POST['id']);
+        if ($response['resultado'] == 1) {
+            echo json_encode([
+                'estatus' => '1',
+                'icon' => 'success',
+                'title' => "Usuario: ",
+                'message' => $response['mensaje']
+            ]);
+        }else{
+            echo json_encode([
+                'estatus' => '2',
+                'icon' => 'error',
+                'title' => $modulo,
+                'message' => $response["mensaje"]
+            ]);
+        }
+        return 0;
+        exit;
+    }
+    }
     $r1 = $usuario->listar();
     $r2 = $usuario->listararea();
     require_once "vista/" . $pagina . "Vista.php";

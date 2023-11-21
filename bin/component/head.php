@@ -21,7 +21,9 @@
   <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="https://cdn.datatables.net/v/bs5/dt-1.13.7/b-2.4.2/datatables.min.css" rel="stylesheet">
+  <link href="plugins/dataTables/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
+  <link href="plugins/dataTables/css/buttons.bootstrap5.min.css" rel="stylesheet"/>
+  <link href="plugins/dataTables/css/responsive.bootstrap5.min.css" rel="stylesheet"/>
 
 
   <!-- Template Main CSS File -->
