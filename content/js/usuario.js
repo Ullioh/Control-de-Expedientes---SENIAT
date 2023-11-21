@@ -324,7 +324,12 @@ function valida_registrar() {
   return error;
 }
 
-
+function cargar_datos(valor) {
+  var datos = new FormData();
+  datos.append("accion", "editar");
+  datos.append("id", valor);
+  mostrar(datos);
+}
 /*-------------------FIN DE FUNCIONES DE HERRAMIENTAS-------------------*/
 
 /*--------------------FUNCIONES CON AJAX----------------------*/
