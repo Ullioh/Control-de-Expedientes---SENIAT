@@ -58,7 +58,38 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
         }
         return 0;
         exit;
-    }
+    } else if ($accion == 'editar') {
+        $datos = $usuario->cargar($_POST['id']);
+        foreach ($datos as $valor) {
+            echo json_encode([
+                'id' => $valor['id_usuario'],
+                'cedula' => $valor['cedula_user'],
+                'nombre_apellido' => $valor['nombre_user'],
+                'cargo' => $valor['nombre_rol'],
+                'area' => $valor['id_area'],
+            ]);
+        }
+        return 0;
+    }else if ($accion == 'modificar') {
+            $response = $usuario->modificar($_POST['id'],$_POST['cedula'],$_POST['nombre_apellido'],$_POST['password'],$_POST['cargo'],$_POST['area']);
+            if ($response['resultado']== 1) {
+                echo json_encode([
+                    'estatus' => '1',
+                    'icon' => 'success',
+                    'title' => $modulo,
+                    'message' => $response['mensaje']
+                ]);
+            }else {
+                echo json_encode([
+                    'estatus' => '2',
+                    'icon' => 'info',
+                    'title' => $modulo,
+                    'message' => $response['mensaje']
+                ]);
+            }
+            return 0;
+            exit;
+        }
     }
     $r1 = $usuario->listar();
     $r2 = $usuario->listararea();

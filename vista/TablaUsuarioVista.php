@@ -35,7 +35,7 @@
               <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title  fs-5" id="staticBackdropLabel">Registrar Usuario</h1>
+                  <h4 class="modal-title" id="titulo"></h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -43,6 +43,7 @@
 
                 <form class="row g-3 needs-validation" novalidate>
                   <input type="hidden" name="accion" class="form-control" id="accion">
+                  <input type="hidden" name="id" class="form-control" id="id">
                   <div class="col-12">
                     <label for="yourCedula" class="form-label">Cedula</label>
                     <input type="text" name="cedula" class="form-control" id="yourCedula" required>
@@ -103,7 +104,7 @@
                 </div>
               </div>
         </div>
-        <div class="card border m-1">
+        <div class="card border mx-3">
           <div class="table-responsive p-2">
               <div class="d-flex flex-wrap justify-content-between m-1">
               </div>
@@ -120,14 +121,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
                   <?php foreach ($r1 as $valor) {?>
+                    <tr>
                     <td> <?php echo $valor['cedula_user']; ?></td>
                     <td> <?php echo $valor['nombre_user']; ?></td>
                     <td> <?php echo $valor['nombre_rol']; ?></td>
                     <td> <?php echo $valor['nombrearea']; ?></td>
                     <td> <?php echo $valor['nombrediv']; ?></td>
-                    <td>  <button type="button" class="btn btn-primary ri-mark-pen-line" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onclick="cargar_datos(<?=$valor['id_usuario'];?>);"> 
+                    <td>  <button type="button" class="btn btn-primary ri-mark-pen-line" onclick="cargar_datos(<?=$valor['id_usuario'];?>);"> 
                           </button>
                           <button type="button" class="btn btn-danger ri-chat-delete-fill" onclick="eliminar(<?=$valor['id_usuario'];?>);"> 
                           </button> 
@@ -135,6 +136,16 @@
                   </tr>
                     <?php }?>
                 </tbody>
+                <tfooter>
+                  <tr>
+                    <th scope="col">Cedula</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Cargo</th>
+                    <th scope="col">Area</th>
+                    <th scope="col">División</th>
+                    <th scope="col">Opciones</th>
+                  </tr>
+                </tfooter>
               </table>
               <!-- End Table with stripped rows -->
              </div>

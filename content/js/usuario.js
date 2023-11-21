@@ -206,7 +206,7 @@ function carga() {
   document.getElementById("nuevo").onclick = function () {
     limpiar();
     $("#accion").val("registrar");
-    $("#staticBackdropLabel").text("Registrar usuario");
+    $("#titulo").text("Registrar usuario");
     $("#enviar").text("Registrar");
     $("#staticBackdrop").modal("show");
   };
@@ -302,6 +302,15 @@ function valida_registrar() {
     document.getElementById("AddFiscal").classList.remove("is-invalid");
     document.getElementById("AddFiscal").classList.add("is-valid");
   }
+  if(document.getElementById("syourPassword").value != ""){
+    document.getElementById("syourPassword").innerHTML ="* Ingrese una contraseña";
+    document.getElementById("syourPassword").style.color = "red";
+    document.getElementById("yourPassword").classList.add("is-invalid");
+  }else{
+    document.getElementById("syourPassword").innerHTML ="";
+    document.getElementById("yourPassword").classList.remove("is-invalid");
+    document.getElementById("yourPassword").classList.add("is-valid");
+  }
 
   if (
     cedula == 0 ||
@@ -315,52 +324,6 @@ function valida_registrar() {
   return error;
 }
 
-$(document).ready(function () {
-  $("#buscarb").click(function (e) {});
-});
-
-function cargar_datos(valor) {
-  var datos = new FormData();
-  datos.append("accion", "editar");
-  datos.append("id", valor);
-  mostrar(datos);
-}
-
-function cerrarmodalrol() {
-  window.location.reload();
-}
-//alert($("#id_usuario").val());
-
-function cargar_rol(iduser) {
-  $("#crear-rol").modal({ backdrop: "static", keyboard: false });
-  document.getElementById("id_usuario").value = iduser;
-  var cedula = document.getElementById("cedulausuario" + iduser).textContent;
-  var nombre = document.getElementById("nombreusuario" + iduser).textContent;
-  var apellido = document.getElementById(
-    "apellidousuario" + iduser
-  ).textContent;
-  $("#usuariocargar").html(
-    "Usuario: " + cedula + ", " + nombre + " " + apellido
-  );
-  $("#crear-rol").modal("show");
-}
-
-function cargar_checkbox(id) {
-  document.getElementById("f2").reset();
-  var datos = new FormData();
-  datos.append("accion", "cargarroles");
-  datos.append("id_usuario", id);
-  mostrar_roles(datos);
-}
-
-function gestionar_rol(id) {
-  var datos = new FormData();
-  datos.append("accion", "registrarroles");
-  datos.append("idrol", id);
-  datos.append("idusuario", $("#id_usuario").val());
-  datos.append("status", $("#check2" + id).prop("checked"));
-  enviadatosAjax(datos);
-}
 
 /*-------------------FIN DE FUNCIONES DE HERRAMIENTAS-------------------*/
 
@@ -393,7 +356,7 @@ function enviaAjax(datos) {
     showConfirmButton: false,
     width: 450,
     padding: '3.5em',
-    timer: 3000,
+    timer: 2000,
     timerProgressBar: true,
   });
   $.ajax({
@@ -478,22 +441,6 @@ function enviadatosAjax(datos) {
   });
 }
 
-function buscadorAjax(datos) {
-  $.ajax({
-    async: true,
-    url: "",
-    type: "POST",
-    contentType: false,
-    data: datos,
-    processData: false,
-    cache: false,
-    success: function (response) {
-      $("#titulo1").text("Resultados de busqueda");
-      $("#elementosEncontrados").modal("show");
-      $("#consulta-base").html(response);
-    },
-  });
-}
 
 function mostrar(datos) {
   $.ajax({
@@ -505,25 +452,19 @@ function mostrar(datos) {
     processData: false,
     cache: false,
     success: (response) => {
-      var res = JSON.parse(response);
+     var res = JSON.parse(response);
       limpiar();
       $("#id").val(res.id);
-      $("#cedula").val(res.cedula);
-      $("#primer_nombre").val(res.primer_nombre);
-      $("#segundo_nombre").val(res.segundo_nombre);
-      $("#primer_apellido").val(res.primer_apellido);
-      $("#segundo_apellido").val(res.segundo_nombre);
-      $("#genero").val(res.genero);
-      $("#correo").val(res.correo);
-      $("#direccion").val(res.direccion);
-      $("#telefono").val(res.telefono);
-      $("#rol").val(res.id_rol);
+      $("#yourCedula").val(res.cedula);
+      $("#yourName").val(res.nombre_apellido);
+      $("#AddFiscal").val(res.cargo);
+      $("#area").val(res.area);
       $("#enviar").text("Modificar");
-      $("#gestion-usuario").modal("show");
+      $("#staticBackdrop").modal("show");
       $("#accion").val("modificar");
       document.getElementById("accion").innerText = "modificar";
       $("#titulo").text("Modificar usuario");
-      $("#elementosEncontrados").modal("hide");
+
     },
     error: (err) => {
       Toast.fire({
@@ -533,42 +474,7 @@ function mostrar(datos) {
   });
 }
 
-function enviarpermisos(datos) {
-  $.ajax({
-    url: "",
-    type: "POST",
-    contentType: false,
-    data: datos,
-    processData: false,
-    cache: false,
-    success: function (data) {},
-  });
-  $("#crear-permisos").modal("show");
-}
 
-function mostrar_roles(datos) {
-  $.ajax({
-    url: "",
-    type: "POST",
-    contentType: false,
-    data: datos,
-    processData: false,
-    cache: false,
-    success: (response) => {
-      var res = JSON.parse(response);
-      for (let propiedad in res) {
-        if (res != undefined) {
-          if (res[propiedad]["cedula"] != undefined) {
-            $("#check2" + res[propiedad]["id_rol"]).prop("checked", true);
-          } else {
-            $("#check2" + res[propiedad]["id_rol"]).prop("checked", false);
-          }
-        } else {
-          $("#check1" + res[propiedad]["id_entorno"]).prop("checked", false);
-        }
-      }
-    },
-  });
-}
+
 
 /*--------------------FIN DE FUNCIONES CON AJAX----------------------*/
