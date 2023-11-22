@@ -29,7 +29,7 @@
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="ri-apps-2-fill"></i>
+                      <i class="ri-exchange-fill"></i>
                     </div>
                     <div class="ps-3">
                       <h6>145</h6>        
@@ -44,7 +44,7 @@
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="ri-apps-2-fill"></i>
+                      <i class="ri-exchange-fill"></i>
                     </div>
                     <div class="ps-3">
                       <h6>145</h6>        
@@ -59,7 +59,7 @@
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="ri-apps-2-fill"></i>
+                      <i class="ri-exchange-fill"></i>
                     </div>
                     <div class="ps-3">
                       <h6>145</h6>        
@@ -74,7 +74,7 @@
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="ri-apps-2-fill"></i>
+                      <i class="ri-exchange-fill"></i>
                     </div>
                     <div class="ps-3">
                       <h6>145</h6>        
@@ -90,7 +90,7 @@
           <!-- Recent Activity -->
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Informacion</h5>
+              <h5 class="card-title">Noticias</h5>
 
               <div class="activity">
 

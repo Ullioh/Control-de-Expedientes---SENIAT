@@ -128,9 +128,9 @@
                     <td> <?php echo $valor['nombre_rol']; ?></td>
                     <td> <?php echo $valor['nombrearea']; ?></td>
                     <td> <?php echo $valor['nombrediv']; ?></td>
-                    <td>  <button type="button" class="btn btn-primary ri-mark-pen-line" onclick="cargar_datos(<?=$valor['id_usuario'];?>);"> 
+                    <td>  <button type="button" class="btn btn-primary ri-edit-line" onclick="cargar_datos(<?=$valor['id_usuario'];?>);"> 
                           </button>
-                          <button type="button" class="btn btn-danger ri-chat-delete-fill" onclick="eliminar(<?=$valor['id_usuario'];?>);"> 
+                          <button type="button" class="btn btn-danger ri-delete-bin-2-line" onclick="eliminar(<?=$valor['id_usuario'];?>);"> 
                           </button> 
                     </td>
                   </tr>
