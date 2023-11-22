@@ -1,9 +1,9 @@
 <header id="header" class="header fixed-top d-flex align-items-center" >
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="?pagina=Principal" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
-        <span class="d-none text-white d-lg-block">SENIAT</span>
+    <a href="?pagina=Principal" class="logo d-flex align-items-center">
+        <img src="assets/img/SOP.png">
+        <span class="d-none text-white d-lg-block">Yoi</span>
       </a>
       <i class="bi bi-list text-white toggle-sidebar-btn"></i>
     </div><!-- End Logo -->

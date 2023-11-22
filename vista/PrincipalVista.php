@@ -90,11 +90,11 @@
           <!-- Recent Activity -->
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Recent Activity</h5>
+              <h5 class="card-title">Informacion</h5>
 
               <div class="activity">
 
-              <h1 class="col-xxl-4 col-xl-12">Aqui va algo, cualquier cosa</h1>
+              <h1 class="col-xxl-4 col-xl-12">Alguna Noticia o informacion relevante para la Compañia.</h1>
 
               </div>
 
