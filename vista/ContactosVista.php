@@ -12,7 +12,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Contact</h1>
+      <h1>Contactos</h1>
     </div><!-- End Page Title -->
 
     <section class="section contact">
@@ -26,7 +26,7 @@
               <div class="info-box card">
                 <i class="bi bi-geo-alt"></i>
                 <h3>Direccion</h3>
-                <p>ubiccion<br>VE 535022</p>
+                <p>ubicacion<br>VE 535022</p>
               </div>
             </div>
             <div class="col-lg-6">
