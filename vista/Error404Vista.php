@@ -9,9 +9,9 @@
     <div class="container">
 
       <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
-        <h1>404</h1>
-        <h2>The page you are looking for doesn't exist.</h2>
-        <a class="btn" href="?pagina=Perfil">Volver al incio</a>
+        <h1 style="color: red">404</h1>
+        <h2 style="color: darkred">Parece que la pagina que buscas no existe.</h2>
+        <a class="btn" href="">Volver al incio</a>
         <img src="assets/img/not-found.svg" class="img-fluid py-5" alt="Page Not Found">
       </section>
 

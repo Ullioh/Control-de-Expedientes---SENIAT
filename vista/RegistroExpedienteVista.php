@@ -87,7 +87,8 @@
                 <thead>
                   <tr>
                     <th scope="col">Nro de Expediente</th>
-                    <th scope="col">Fiscal</th>
+                    <th scope="col">Fiscal Asignado</th>
+                    <th scope="col">Supervisor asignado</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Cambiar Estado</th>
                     <th>Detalles de Expediente</th>
@@ -102,8 +103,12 @@
                     0000-0000-0000
                   </td>
 
-                  </td> 
-                    <td>Nombre Fisca
+                  <td>
+                    Nombre Fisca
+                  </td>
+                    
+                  <td>
+                    Nombre Supervisor
                   </td>
 
                   <td> 
