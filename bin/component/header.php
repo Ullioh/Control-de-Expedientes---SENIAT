@@ -2,8 +2,8 @@
 
     <div class="d-flex align-items-center justify-content-between">
     <a href="?pagina=Principal" class="logo d-flex align-items-center">
-        <img src="assets/img/SOP.png">
-        <span class="d-none text-white d-lg-block">Yoi</span>
+        <img src="assets/img/LSD.png">
+        <span class="d-none text-white d-lg-block">SILEX</span>
       </a>
       <i class="bi bi-list text-white toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -24,7 +24,7 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6> <?php echo $_SESSION['usuario']["nombre_apellido"] ?></h6>
-              <span> Cargo </span>
+              <span> <?php echo $_SESSION['usuario']["nombre_rol"]?> </span>
             </li>
             <li>
               <hr class="dropdown-divider">

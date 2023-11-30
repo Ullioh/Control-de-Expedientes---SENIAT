@@ -20,8 +20,12 @@
               <div class="card mb-3">
 
                 <div class="card-body">
-
                   <div class="pt-4 pb-2">
+
+                    <div class="d-flex justify-content-center py-4">
+                      <img src="assets/img/SL.png" style="width: 186px; height: 64px;">
+                    </div>
+
                     <h5 class="card-title text-center pb-0 fs-4">Iniciar Sesión</h5>
                     <p class="text-center small">Ingrese su Cedula y Contraseña</p>
                   </div>

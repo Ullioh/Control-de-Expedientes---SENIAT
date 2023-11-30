@@ -24,7 +24,7 @@
 
               <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
               <h2><?php echo $_SESSION['usuario']["nombre_apellido"] ?></h2>
-              <h3>Cargo</h3>
+              <h3> <?php echo $_SESSION['usuario']["nombre_rol"]?> </h3>
               <div class="social-links mt-2">
               </div>
             </div>
@@ -61,8 +61,8 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Cargo</div>
-                    <div class="col-lg-9 col-md-8"> ... </div>
+                    <div class="col-lg-3 col-md-4 label">Cargo en el sistema</div>
+                    <div class="col-lg-9 col-md-8"> <?php echo $_SESSION['usuario']["nombre_rol"]?> </div>
                   </div>
 
                   <div class="row">

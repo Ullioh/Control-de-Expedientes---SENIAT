@@ -6,5 +6,6 @@ if (!isset($_SESSION['usuario'])) {
 if (is_file("vista/" . $pagina . "Vista.php")) {
     require_once "vista/" . $pagina . "Vista.php";
 } else {
-    echo "pagina en construccion";
+    echo "pagina en construccion"; 
 }
+
