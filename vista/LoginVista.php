@@ -13,7 +13,7 @@
           <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-              <div class="d-flex justify-content-center py-4">
+              <div class="d-flex justify-content-center py-2">
                 <img src="assets/img/SOP.png" style="width: 224px; height: 44px;">
               </div><!-- End Logo -->
 
@@ -23,7 +23,7 @@
                   <div class="pt-4 pb-2">
 
                     <div class="d-flex justify-content-center py-4">
-                      <img src="assets/img/SL.png" style="width: 186px; height: 64px;">
+                      <img src="assets/img/SL.png" style="width: 186px; height: 64px; padding: 0px; margin: 0px">
                     </div>
 
                     <h5 class="card-title text-center pb-0 fs-4">Iniciar Sesión</h5>
