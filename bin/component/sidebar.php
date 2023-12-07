@@ -25,6 +25,11 @@
         </a>
       </i><!-- End Tables Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="?pagina=RegistroExpedienteSumario">
+          <i class="bi bi bi-layout-text-window-reverse"></i><span>Estado de Expedientes Sumario</span>
+        </a>
+      </li><!-- End Tables Nav -->
             <li class="nav-item">
         <a class="nav-link collapsed"  href="?pagina=TablaUsuario">
           <i class="ri-file-user-line"></i><span>Estado de Usuarios</span>
