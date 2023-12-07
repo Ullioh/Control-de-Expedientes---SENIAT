@@ -8,8 +8,7 @@
 
   <!-- Favicons -->
   <link href="assets/img/SLL.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+ 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="assets/css/googlefont.css" rel="stylesheet">
