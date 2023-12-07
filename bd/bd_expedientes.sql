@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1deb5ubuntu1
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 06-11-2023 a las 14:01:36
--- Versión del servidor: 8.0.35-0ubuntu0.22.04.1
--- Versión de PHP: 8.1.2-1ubuntu2.14
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 07-12-2023 a las 19:46:05
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.0.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `bdexpedientes`
+-- Base de datos: `bd_expedientes`
 --
 
 -- --------------------------------------------------------
@@ -28,10 +29,17 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `area` (
-  `id` int NOT NULL,
-  `nombrearea` int NOT NULL,
-  `id_division` int NOT NULL
+  `id` int(11) NOT NULL,
+  `nombrearea` varchar(40) NOT NULL,
+  `id_division` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `area`
+--
+
+INSERT INTO `area` (`id`, `nombrearea`, `id_division`) VALUES
+(1, 'Informatica', 1);
 
 -- --------------------------------------------------------
 
@@ -40,10 +48,16 @@ CREATE TABLE `area` (
 --
 
 CREATE TABLE `division` (
-  `id` int NOT NULL,
-  `id_division` int NOT NULL,
-  `nombrediv` varchar(80) CHARACTER SET utf8mb4
+  `id` int(11) NOT NULL,
+  `nombrediv` varchar(80) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `division`
+--
+
+INSERT INTO `division` (`id`, `nombrediv`) VALUES
+(1, 'Administración');
 
 -- --------------------------------------------------------
 
@@ -52,7 +66,7 @@ CREATE TABLE `division` (
 --
 
 CREATE TABLE `entorno_sistema` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `nombre` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -63,8 +77,8 @@ CREATE TABLE `entorno_sistema` (
 --
 
 CREATE TABLE `estado_expediente` (
-  `id` int NOT NULL,
-  `estado_exp` int NOT NULL
+  `id` int(11) NOT NULL,
+  `estado_exp` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -74,12 +88,12 @@ CREATE TABLE `estado_expediente` (
 --
 
 CREATE TABLE `expedientes` (
-  `id` int NOT NULL,
-  `NroProvi` varchar(40) CHARACTER SET utf8mb4,
+  `id` int(11) NOT NULL,
+  `NroProvi` varchar(40) DEFAULT NULL,
   `sujetoP` varchar(40) NOT NULL,
   `RifSP` varchar(12) NOT NULL,
   `DomicilioFiscal` varchar(100) NOT NULL,
-  `id_estado_expedientes` int NOT NULL
+  `id_estado_expedientes` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -89,13 +103,13 @@ CREATE TABLE `expedientes` (
 --
 
 CREATE TABLE `permiso` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `añadir` varchar(40) NOT NULL,
   `solicitar` varchar(40) NOT NULL,
   `ver` varchar(40) NOT NULL,
   `editar` varchar(40) NOT NULL,
-  `id_rol` int NOT NULL,
-  `id_entorno` int NOT NULL
+  `id_rol` int(11) NOT NULL,
+  `id_entorno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -105,7 +119,7 @@ CREATE TABLE `permiso` (
 --
 
 CREATE TABLE `rol` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `nombrerol` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -116,25 +130,35 @@ CREATE TABLE `rol` (
 --
 
 CREATE TABLE `user` (
-  `id` int NOT NULL,
-  `cedula_user` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `cedula_user` int(11) NOT NULL,
   `nombre_user` varchar(40) NOT NULL,
-  `id_area` int NOT NULL,
-  `id_rol` int NOT NULL,
-  `id_expedientes` int NOT NULL,
+  `id_area` int(11) DEFAULT NULL,
+  `nombre_rol` varchar(40) NOT NULL,
+  `id_expedientes` int(11) DEFAULT NULL,
   `password` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`id`, `cedula_user`, `nombre_user`, `id_area`, `nombre_rol`, `id_expedientes`, `password`) VALUES
+(2, 28055655, 'Cesar Vides', 1, 'Administrador', 1, '123123'),
+(3, 28055651, 'Alejandro Vides', 1, 'Fiscal', 1, '123123'),
+(4, 27209480, 'Julio Linarez', 1, 'Super Usuario', NULL, '0000'),
+(7, 28020829, 'katiuska', 1, 'administrador', NULL, '123123');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `userXexpediente`
+-- Estructura de tabla para la tabla `userxexpediente`
 --
 
-CREATE TABLE `userXexpediente` (
-  `id` int NOT NULL,
-  `id_user` int NOT NULL,
-  `id_expediente` int NOT NULL
+CREATE TABLE `userxexpediente` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_expediente` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -193,13 +217,12 @@ ALTER TABLE `rol`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_area` (`id_area`),
-  ADD KEY `id_expedientes` (`id_expedientes`),
-  ADD KEY `id_rol` (`id_rol`) USING BTREE;
+  ADD KEY `id_expedientes` (`id_expedientes`);
 
 --
--- Indices de la tabla `userXexpediente`
+-- Indices de la tabla `userxexpediente`
 --
-ALTER TABLE `userXexpediente`
+ALTER TABLE `userxexpediente`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_user` (`id_user`),
   ADD KEY `id_expediente` (`id_expediente`);
@@ -212,55 +235,55 @@ ALTER TABLE `userXexpediente`
 -- AUTO_INCREMENT de la tabla `area`
 --
 ALTER TABLE `area`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `division`
 --
 ALTER TABLE `division`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `entorno_sistema`
 --
 ALTER TABLE `entorno_sistema`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `estado_expediente`
 --
 ALTER TABLE `estado_expediente`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `expedientes`
 --
 ALTER TABLE `expedientes`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de la tabla `userXexpediente`
+-- AUTO_INCREMENT de la tabla `userxexpediente`
 --
-ALTER TABLE `userXexpediente`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `userxexpediente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -282,20 +305,18 @@ ALTER TABLE `expedientes`
 -- Filtros para la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  ADD CONSTRAINT `permiso_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id`),
   ADD CONSTRAINT `permiso_ibfk_2` FOREIGN KEY (`id_entorno`) REFERENCES `entorno_sistema` (`id`);
 
 --
 -- Filtros para la tabla `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_area`) REFERENCES `area` (`id`),
-  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id`);
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_area`) REFERENCES `area` (`id`);
 
 --
--- Filtros para la tabla `userXexpediente`
+-- Filtros para la tabla `userxexpediente`
 --
-ALTER TABLE `userXexpediente`
+ALTER TABLE `userxexpediente`
   ADD CONSTRAINT `fk_exp` FOREIGN KEY (`id_expediente`) REFERENCES `expedientes` (`id`),
   ADD CONSTRAINT `fk_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
 COMMIT;
