@@ -26,7 +26,7 @@
               <h5 class="card-title">Lista de Usuarios</h5>
 
               <button type="button" class="btn btn-primary" id="nuevo">
-                Registrar Ususario
+                Registrar Usuarios
               </button>
             <!-- Button trigger modal -->
 
@@ -35,71 +35,67 @@
               <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                   <div class="modal-header">
-                  <h4 class="modal-title" id="titulo"></h4>
+                    <h4 class="modal-title" id="titulo"></h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div class="modal-body">
+                <div class="modal-body">
+                  <form class="row g-3 needs-validation" novalidate>
+                    <input type="hidden" name="accion" class="form-control" id="accion">
+                    <input type="hidden" name="id" class="form-control" id="id">
+                      <div class="col-12">
+                        <label for="yourCedula" class="form-label">Cedula</label>
+                        <input type="text" name="cedula" class="form-control" id="yourCedula" required>
+                        <spam id="syourCedula"></spam>
+                      </div>
 
-
-                <form class="row g-3 needs-validation" novalidate>
-                  <input type="hidden" name="accion" class="form-control" id="accion">
-                  <input type="hidden" name="id" class="form-control" id="id">
-                  <div class="col-12">
-                    <label for="yourCedula" class="form-label">Cedula</label>
-                    <input type="text" name="cedula" class="form-control" id="yourCedula" required>
-                    <spam id="syourCedula"></spam>
-                  </div>
-
-                    <div class="col-12">
-                      <label for="yourName" class="form-label">Nombre y Apellido</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <spam id="syourName"></spam>
-                    </div>
-                    
-                    <div class="col-12">
-                      <label for="DomiciFi" class="form-label">Asignar cargo</label>
-                      <select class="form-control" id="AddFiscal">
-                        <option value="0">--Seleccione--</option>
-                        <option value="Super Usuario">Super Usuario</option>
-                        <option value="Administrador">Administrador</option>
-                        <option value="Fiscal">Fiscal</option>
+                      <div class="col-12">
+                        <label for="yourName" class="form-label">Nombre y Apellido</label>
+                        <input type="text" name="name" class="form-control" id="yourName" required>
+                        <spam id="syourName"></spam>
+                      </div>
+                      
+                      <div class="col-12">
+                        <label for="DomiciFi" class="form-label">Asignar cargo</label>
+                        <select class="form-control" id="AddFiscal">
+                          <option value="0">--Seleccione--</option>
+                          <option value="Super Usuario">Super Usuario</option>
+                          <option value="Administrador">Administrador</option>
+                          <option value="Fiscal">Fiscal</option>
+                        </select>
+                        <spam id="sAddFiscal"></spam>
+                      </div>
+                      
+                      <div class="col-12">
+                      <label for="DomiciFi" class="form-label">Asignar Area</label>
+                      <select class="form-control form-select" id="area" name="area">
+                          <option value="0">--Seleccione--</option>
+                          <?php foreach ($r2 as $key => $value) {?>
+                          <option value="<?=$value['id'];?>"> <?php echo $value['nombrearea']; ?>
+                          </option>
+                          <?php }?>
                       </select>
-                      <spam id="sAddFiscal"></spam>
-                  	</div>
-                    
-                    <div class="col-12">
-                    <label for="DomiciFi" class="form-label">Asignar Area</label>
-                    <select class="form-control form-select" id="area" name="area">
-                        <option value="0">--Seleccione--</option>
-                        <?php foreach ($r2 as $key => $value) {?>
-                        <option value="<?=$value['id'];?>"> <?php echo $value['nombrearea']; ?>
-                        </option>
-                        <?php }?>
-                    </select>
-                    <spam id="sarea"></spam>
-                  	</div>
+                      <spam id="sarea"></spam>
+                      </div>
 
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Contraseña</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <spam id="syourPassword"></spam>
-                    </div>
+                      <div class="col-12">
+                        <label for="yourPassword" class="form-label">Contraseña</label>
+                        <input type="password" name="password" class="form-control" id="yourPassword" required>
+                        <spam id="syourPassword"></spam>
+                      </div>
 
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Repita su Contraseña</label>
-                      <input type="password" name="password1" class="form-control" id="yourPassword1" required>
-                      <spam id="syourPassword1"></spam>
-                    </div>
+                      <div class="col-12">
+                        <label for="yourPassword" class="form-label">Repita su Contraseña</label>
+                        <input type="password" name="password1" class="form-control" id="yourPassword1" required>
+                        <spam id="syourPassword1"></spam>
+                      </div>
 
                     </div>
-                     <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" id="enviar" class="btn btn-primary">Registrar Usuario</button>
-                    </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" id="enviar" class="btn btn-primary">Registrar Usuario</button>
+                      </div>
 
-                  </form>
-
-
+                    </form>
                   </div>
                 </div>
               </div>

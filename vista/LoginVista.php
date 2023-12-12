@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include_once "bin/component/head.php";?>
+<?php 
+include_once "bin/component/head.php";
+?>
 
 <body style="background: #f33f3f">
 
@@ -29,11 +31,10 @@
                     <h5 class="card-title text-center pb-0 fs-4">Iniciar Sesión</h5>
                     <p class="text-center small">Ingrese su Cedula y Contraseña</p>
                   </div>
-
                   <div class="row g-3">
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Cedula</label>
+                      <label for="user" class="form-label">Cedula</label>
                       <div class="input-group has-validation">
                         <input type="text" name="username" class="form-control" id="user">
                         <spam id="spam1" class="text-danger"></spam>
@@ -41,7 +42,7 @@
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Contraseña</label>
+                      <label for="contrasena" class="form-label">Contraseña</label>
                       <input type="password" name="password" class="form-control" id="contrasena">
                       <spam id="spam2" class="text-danger"></spam>
                     </div>
