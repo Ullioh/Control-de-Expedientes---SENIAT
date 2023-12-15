@@ -66,10 +66,11 @@ class RegistroExpedienteModelo extends connectDB
         }
     }
 
-    public function eliminar($id)
+    public function eliminar($id_expediente,$id_usuario)
     {
     try {
-        $this->conex->query("DELETE FROM user WHERE id = '$id'");
+        $this->conex->query("DELETE FROM userxexpediente WHERE id_user = '$id_usuario' AND id_expediente = '$id_expediente'");
+        $this->conex->query("DELETE FROM expedientes WHERE id = '$id_expediente'");
         $respuesta['resultado'] = 1;
         $respuesta['mensaje'] = "Eliminacion exitosa";
         return $respuesta;
@@ -79,9 +80,9 @@ class RegistroExpedienteModelo extends connectDB
     }
     }
 
-    public function cargar($id)
+    public function cargar($id_expediente, $id_usuario)
     {
-        $resultado = $this->conex->prepare("SELECT *,user.id as id_usuario FROM user,area,division WHERE user.id_area = area.id AND area.id_division = division.id AND user.id = '$id'");
+        $resultado = $this->conex->prepare("SELECT *, expedientes.id as id_expediente, user.id as id_usuario, userxexpediente.id AS id_expedient_user FROM expedientes,userxexpediente,user WHERE user.id = userxexpediente.id_user AND userxexpediente.id_expediente = expedientes.id AND expedientes.id ='$id_expediente' and user.id ='$id_usuario'");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -92,15 +93,29 @@ class RegistroExpedienteModelo extends connectDB
         return $respuestaArreglo;
     }
 
-    public function modificar($id,$cedula,$nombre_apellido,$password,$cargo,$area)
+    public function buscar_status_expediente($id_expediente)
     {
-        $validar_modificar = $this->validar_modificar($cedula, $id);
+        $resultado = $this->conex->prepare("SELECT * FROM expedientes WHERE  id ='$id_expediente'");
+        $respuestaArreglo = [];
+        try {
+            $resultado->execute();
+            $respuestaArreglo = $resultado->fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return $respuestaArreglo;
+    }
+
+    public function modificar($id_expedient_user ,$id_expediente,$supervisor,$nro_providencia,$sujeto_pasivo,$rif,$domicilio_fiscal,$fiscal_A)
+    {
+        $validar_modificar = $this->validar_modificar($id_expediente, $nro_providencia);
         if ($validar_modificar) {
             $respuesta['resultado'] = 3;
-            $respuesta['mensaje'] = "La cedula ya se encuetra registrada.";
+            $respuesta['mensaje'] = "El expediente ya se encuetra registrada.";
         }else {
             try {
-                $this->conex->query("UPDATE user SET cedula_user = '$cedula', nombre_user = '$nombre_apellido', nombre_rol = '$cargo', id_area = '$area' WHERE id = '$id'");
+                $this->conex->query("UPDATE expedientes SET NroProvi = '$nro_providencia', sujetoP = '$sujeto_pasivo', RifSP = '$rif', DomicilioFiscal = '$domicilio_fiscal' WHERE id = '$id_expediente'");
+                $this->conex->query("UPDATE userxexpediente SET id_user = '$fiscal_A', id_expediente = '$id_expediente' WHERE id = '$id_expedient_user'");
                 $respuesta["resultado"]=1;
                 $respuesta["mensaje"]="Modificación exitosa.";
             } catch (Exception $e) {
@@ -111,10 +126,24 @@ class RegistroExpedienteModelo extends connectDB
         return $respuesta;
     }
 
-    public function validar_modificar($cedula, $id)
+    public function cambiar_estado($estado ,$id_expediente)
     {
         try {
-            $resultado = $this->conex->prepare("SELECT * FROM user WHERE cedula_user='$cedula' AND id<>'$id'");
+            $this->conex->query("UPDATE expedientes SET id_estado_expedientes = '$estado' WHERE id = '$id_expediente'");
+            $respuesta["resultado"]=1;
+            $respuesta["mensaje"]="Modificación exitosa.";
+        } catch (Exception $e) {
+            $respuesta['resultado'] = 0;
+            $respuesta['mensaje'] = $e->getMessage();
+        }
+        return $respuesta;
+    }
+
+
+    public function validar_modificar($id, $nro_providencia)
+    {
+        try {
+            $resultado = $this->conex->prepare("SELECT * FROM expedientes WHERE NroProvi='$nro_providencia' AND id<>'$id'");
             $resultado->execute();
             $fila = $resultado->fetchAll();
             if ($fila) {

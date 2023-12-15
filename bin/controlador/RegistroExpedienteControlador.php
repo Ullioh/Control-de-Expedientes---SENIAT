@@ -37,12 +37,12 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
         }
         exit;
     }else if ($accion == 'eliminar') {
-        $response = $Expediente->eliminar($_POST['id']);
+        $response = $Expediente->eliminar($_POST['id_expediente'],$_POST['id_usuario']);
         if ($response['resultado'] == 1) {
             echo json_encode([
                 'estatus' => '1',
                 'icon' => 'success',
-                'title' => "Usuario: ",
+                'title' => $modulo,
                 'message' => $response['mensaje']
             ]);
         }else{
@@ -56,19 +56,21 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
         return 0;
         exit;
     } else if ($accion == 'editar') {
-        $datos = $Expediente->cargar($_POST['id']);
+        $datos = $Expediente->cargar($_POST['id_expediente'],$_POST['id_usuario']);
         foreach ($datos as $valor) {
             echo json_encode([
-                'id' => $valor['id_usuario'],
-                'cedula' => $valor['cedula_user'],
-                'nombre_apellido' => $valor['nombre_user'],
-                'cargo' => $valor['nombre_rol'],
-                'area' => $valor['id_area'],
+                'id_expedient_user' => $valor['id_expedient_user'],
+                'id_expediente' => $valor['id_expediente'],
+                'nro_providencia' => $valor['NroProvi'],
+                'sujeto_pasivo' => $valor['sujetoP'],
+                'rif' => $valor['RifSP'],
+                'domicilio_fiscal' => $valor['DomicilioFiscal'],
+                'id_usuario' => $valor['id_usuario'],
             ]);
         }
         return 0;
     }else if ($accion == 'modificar') {
-            $response = $Expediente->modificar($_POST['id'],$_POST['cedula'],$_POST['nombre_apellido'],$_POST['password'],$_POST['cargo'],$_POST['area']);
+            $response = $Expediente->modificar($_POST['id_expedient_user'],$_POST['id_expediente'],$_POST['supervisor'],$_POST['nro_providencia'],$_POST['sujeto_pasivo'],$_POST['rif'],$_POST['domicilio_fiscal'],$_POST['fiscal_A']);
             if ($response['resultado']== 1) {
                 echo json_encode([
                     'estatus' => '1',
@@ -82,6 +84,35 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
                     'icon' => 'info',
                     'title' => $modulo,
                     'message' => $response['mensaje']
+                ]);
+            }
+            return 0;
+            exit;
+        }else if ($accion == 'cambiar_estado') {
+            $response = $Expediente->cambiar_estado($_POST['estado'],$_POST['id_expediente']);
+            if ($response['resultado']== 1) {
+                echo json_encode([
+                    'estatus' => '1',
+                    'icon' => 'success',
+                    'title' => $modulo,
+                    'message' => $response['mensaje']
+                ]);
+            }else {
+                echo json_encode([
+                    'estatus' => '2',
+                    'icon' => 'info',
+                    'title' => $modulo,
+                    'message' => $response['mensaje']
+                ]);
+            }
+            return 0;
+            exit;
+        }
+        else if ($accion == 'buscar_status_expediente') {
+            $datos = $Expediente->buscar_status_expediente($_POST['id_expediente']);
+            foreach ($datos as $valor) {
+                echo json_encode([
+                    'id_estado_expedientes' => $valor['id_estado_expedientes'],
                 ]);
             }
             return 0;

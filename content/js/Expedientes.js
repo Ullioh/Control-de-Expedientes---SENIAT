@@ -25,8 +25,7 @@ var keyup_direccion = /^[A-ZÁÉÍÓÚa-zñáéíóú0-9,.#%$^&*:\s]{2,100}$/;
   });
 }); */
 
-
-$(document).ready(function() {    
+ 
   var table = $('#funcionpaginacion').DataTable({      
       language: {
               "lengthMenu": "Mostrar _MENU_ registros",
@@ -115,7 +114,7 @@ $(document).ready(function() {
     },    
   ]  
   });     
-});
+
 
 
 document.onload = carga();
@@ -185,7 +184,7 @@ function carga() {
 
     document.getElementById("DomiFI").maxLength = 255;
     document.getElementById("DomiFI").onkeypress = function (e) {
-      er = /^[A-Za-z\s\b\u00f1\u00d1\u00E0-\u00FC]*$/;
+      er = /^[A-Za-z0-9\s\b\u00f1\u00d1\u00E0-\u00FC]*$/;
       validarkeypress(er, e);
     };
     document.getElementById("DomiFI").onkeyup = function () {
@@ -219,7 +218,8 @@ function carga() {
     if (a != "") {
     }else {
       var datos = new FormData();
-      datos.append("id", $("#id").val());
+      datos.append("id_expedient_user", $("#id_expedient_user").val());
+      datos.append("id_expediente", $("#id_expediente").val());
       datos.append("accion", $("#accion").val());
       datos.append("supervisor", $("#supervisor").val());
       datos.append("nro_providencia", $("#NroProvidencia").val());
@@ -277,6 +277,37 @@ function validarkeyup(er, etiqueta, etiquetamensaje, mensaje) {
     return 1;
   }
 }
+
+
+
+function buscar_status_expediente(id_expediente) {
+  document.getElementById("expedi_status").value = id_expediente;
+  var datos = new FormData();
+  datos.append("accion", "buscar_status_expediente");
+  datos.append("id_expediente", id_expediente);
+  buscar_status_ajax(datos);
+}
+
+
+
+function cambiarEstado(boton) {
+  // Obtener los botones
+  // Desactivar el botón actual y activar el otro
+      var datos = new FormData();
+      datos.append("accion", "cambiar_estado");
+      datos.append("id_expediente", document.getElementById("expedi_status").value);
+  if (boton.id == 'btnRevision') {
+    document.getElementById('btnRevision').disabled = true;
+    document.getElementById('btnProceso').disabled = false;
+      datos.append("estado", 1);
+  } else if (boton.id == 'btnProceso') {
+    document.getElementById('btnProceso').disabled = true;
+    document.getElementById('btnRevision').disabled = false;
+      datos.append("estado", 2);
+  }
+  enviaEstadoAjax(datos);
+} 
+ 
 
 function limpiar() {
   $("#NroProvidencia").val("");
@@ -351,16 +382,17 @@ function valida_registrar() {
   return error;
 }
 
-function cargar_datos(valor) {
+function cargar_datos(id_expediente,id_usuario) {
   var datos = new FormData();
   datos.append("accion", "editar");
-  datos.append("id", valor);
+  datos.append("id_expediente", id_expediente);
+  datos.append("id_usuario", id_usuario);
   mostrar(datos);
 }
 /*-------------------FIN DE FUNCIONES DE HERRAMIENTAS-------------------*/
 
 /*--------------------FUNCIONES CON AJAX----------------------*/
-function eliminar(id) {
+function eliminar(id_expediente, id_usuario) {
   Swal.fire({
     title: "¿Está seguro de eliminar el registro?",
     text: "¡No podrás revertir esto!",
@@ -376,7 +408,8 @@ function eliminar(id) {
       setTimeout(function () {
         var datos = new FormData();
         datos.append("accion", "eliminar");
-        datos.append("id", id);
+        datos.append("id_expediente", id_expediente);
+        datos.append("id_usuario", id_usuario);
         enviaAjax(datos);
       }, 10);
     }
@@ -473,6 +506,77 @@ function enviadatosAjax(datos) {
   });
 }
 
+function enviaEstadoAjax(datos) {
+  var toastMixin = Swal.mixin({
+    toast: true,
+    width: 300,
+    position: "top-right",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+  });
+  $.ajax({
+    url: "",
+    type: "POST",
+    contentType: false,
+    data: datos,
+    processData: false,
+    cache: false,
+    success: (response) => {
+      var res = JSON.parse(response);
+      //alert(res.title);
+      if (res.estatus == 1) {
+        toastMixin.fire({
+          title: res.title,
+          text: res.message,
+          icon: res.icon,
+        });
+        setTimeout(function () {
+          window.location.reload();
+        }, 1500);
+      } else {
+        toastMixin.fire({
+
+          text: res.message,
+          title: res.title,
+          icon: res.icon,
+        });
+      }
+    },
+    error: (err) => {
+      Toast.fire({
+        icon: res.error,
+      });
+    },
+  });
+}
+
+function buscar_status_ajax(datos) {
+  $.ajax({
+    url: "",
+    type: "POST",
+    contentType: false,
+    data: datos,
+    processData: false,
+    cache: false,
+    success: (response) => {
+      var res = JSON.parse(response);
+      if (res.id_estado_expedientes == 1) {
+        document.getElementById('btnRevision').disabled = true;
+        document.getElementById('btnProceso').disabled = false;
+      } else if (res.id_estado_expedientes == 2) {
+        document.getElementById('btnProceso').disabled = true;
+        document.getElementById('btnRevision').disabled = false;
+    }
+    },
+    error: (err) => {
+      Toast.fire({
+        icon: res.error,
+      });
+    },
+  });
+}
+
 
 function mostrar(datos) {
   $.ajax({
@@ -486,17 +590,18 @@ function mostrar(datos) {
     success: (response) => {
      var res = JSON.parse(response);
       limpiar();
-      $("#id").val(res.id);
-      $("#yourCedula").val(res.cedula);
-      $("#yourName").val(res.nombre_apellido);
-      $("#AddFiscal").val(res.cargo);
-      $("#area").val(res.area);
+      $("#id_expedient_user").val(res.id_expedient_user);
+      $("#id_expediente").val(res.id_expediente);
+      $("#NroProvidencia").val(res.nro_providencia);
+      $("#SuPa").val(res.sujeto_pasivo);
+      $("#yourRifC").val(res.rif);
+      $("#DomiFI").val(res.domicilio_fiscal);
+      $("#AddFiscal").val(res.id_usuario);
       $("#enviar").text("Modificar");
       $("#staticBackdrop").modal("show");
       $("#accion").val("modificar");
       document.getElementById("accion").innerText = "modificar";
-      $("#titulo").text("Modificar usuario");
-
+      $("#titulo").text("Modificar Expediente");
     },
     error: (err) => {
       Toast.fire({
