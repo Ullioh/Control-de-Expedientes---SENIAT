@@ -168,6 +168,20 @@ class RegistroExpedienteModelo extends connectDB
         }
         return $respuestaArreglo;
     }
+    
+    public function listar_division()
+    {
+        $resultado = $this->conex->prepare("SELECT * FROM division_expediente");
+        $respuestaArreglo = [];
+        try {
+            $resultado->execute();
+            $respuestaArreglo = $resultado->fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return $respuestaArreglo;
+    }
+
     public function listar_fiscal()
     {
         $resultado = $this->conex->prepare("SELECT * FROM user WHERE nombre_rol = 'Fiscal'");

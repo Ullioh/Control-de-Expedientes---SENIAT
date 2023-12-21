@@ -140,13 +140,22 @@
                                       <button type="button" id="btnRevision" class="btn btn-success rounded-pill" onclick="cambiarEstado(this)">En revision</button> 
                                       <!-- <button type="button" class="btn btn-success rounded-pill">Despachar</button>
                                       <div class="modal-footer"> -->
+                                      <div class="input-group mb-1">
+                                        <label class="input-group-text" for="select_division">División</label>
+                                        <select class="form-select" id="select_division">
+                                          <option selected>Seleccionar división</option>
+                                          <?php foreach ($r3 as $key => $value) {?>
+                                            <option value="<?=$value['id'];?>"><?=$value['nombre_division'];?></option>
+                                          <?php }?>
+                                        </select>
+                                      </div>
 
-                                      <select class="form-select" aria-label="Default select example">
-                                        <option selected=""> despachar expediente</option>
-                                        <option value="1">A oficina 1</option>
-                                        <option value="2">A oficna 2</option>
-                                        <option value="3">A oficina 3</option>
-                                      </select>
+                                      <div class="input-group mb-1">
+                                        <label class="input-group-text" for="inputGroupSelect01">Área</label>
+                                        <select class="form-select" id="inputGroupSelect01">
+                                          <option selected>Seleccionar área</option>
+                                        </select>
+                                      </div>
                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                     </form>
 

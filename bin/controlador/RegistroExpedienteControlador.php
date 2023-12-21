@@ -118,10 +118,16 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
             return 0;
             exit;
         }
+        else if ($accion == 'buscar_area') {
+            $datos = $Expediente->buscarArea($_POST['id_division']);
+            return 0;
+            exit;
+        }
     }
 
     $r1 = $Expediente->listar();
     $r2 = $Expediente->listar_fiscal();
+    $r3 = $Expediente->listar_division();
     require_once "vista/" . $pagina . "Vista.php";
 } else {
     echo "pagina en construccion";

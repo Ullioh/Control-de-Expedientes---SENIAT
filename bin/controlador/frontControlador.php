@@ -12,9 +12,8 @@
 		public function __construct($request){
 			if (isset($request["pagina"])) {
 				$this->pagina = $request["pagina"];
-				$sistem = new configSistema();
-				$this->directory = $sistem->_Dir_Control_();
-				$this->controlador = $sistem->_Control_();
+				$this->directory = parent::_Dir_Control_();
+				$this->controlador = parent::_Control_();
 				$this->validarpagina();
 			}else{
 				die("<script>window.location='?pagina=Login'</script>");

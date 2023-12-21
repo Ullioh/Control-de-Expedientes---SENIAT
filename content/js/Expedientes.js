@@ -239,6 +239,13 @@ function carga() {
     $("#staticBackdrop").modal("show");
   };
 }
+
+document.getElementById("select_division").onchange = function(){
+  var datos = new FormData();
+  datos.append("accion", "buscar_area");
+  datos.append("id_division", document.getElementById("select_division").value);
+  buscar_division_area(datos);
+}
 /*--------------------FIN DE CRUD DEL MODULO----------------------*/
 
 /*-------------------FUNCIONES DE HERRAMIENTAS-------------------*/
@@ -568,6 +575,25 @@ function buscar_status_ajax(datos) {
         document.getElementById('btnProceso').disabled = true;
         document.getElementById('btnRevision').disabled = false;
     }
+    },
+    error: (err) => {
+      Toast.fire({
+        icon: res.error,
+      });
+    },
+  });
+}
+
+function buscar_division_area(datos) {
+  $.ajax({
+    url: "",
+    type: "POST",
+    contentType: false,
+    data: datos,
+    processData: false,
+    cache: false,
+    success: (response) => {
+      alert(response);
     },
     error: (err) => {
       Toast.fire({
