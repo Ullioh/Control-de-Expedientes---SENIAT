@@ -206,7 +206,7 @@ function carga() {
       r = validarselect(
         this,
         document.getElementById("sAddFiscal"),
-        "* Seleccione un Rol"
+        "* Seleccione un genero"
       );
     };
 
@@ -227,6 +227,7 @@ function carga() {
       datos.append("rif", $("#yourRifC").val());
       datos.append("domicilio_fiscal", $("#DomiFI").val());
       datos.append("fiscal_A", $("#AddFiscal").val());
+      datos.append("id_area", $("#registro_id_area").val());
       enviaAjax(datos);
     }
   };
@@ -240,11 +241,31 @@ function carga() {
   };
 }
 
+document.getElementById("regis_select_division").onchange = function(){
+  r = validarselect(
+    this,
+    document.getElementById("sregis_select_division"),
+    "* Seleccione una división"
+  );
+  var datos = new FormData();
+  datos.append("accion", "regis_buscar_area");
+  datos.append("regis_id_division", document.getElementById("regis_select_division").value);
+  regis_buscar_division_area(datos);
+}
+
 document.getElementById("select_division").onchange = function(){
   var datos = new FormData();
   datos.append("accion", "buscar_area");
   datos.append("id_division", document.getElementById("select_division").value);
   buscar_division_area(datos);
+}
+
+function enviar_expediente(){
+  var datos = new FormData();
+  datos.append("accion", "update_area_expediente");
+  datos.append("id_expediente", document.getElementById("expedi_status").value);
+  datos.append("id_area", document.getElementById("id_area").value);
+  enviaAjax(datos);
 }
 /*--------------------FIN DE CRUD DEL MODULO----------------------*/
 
@@ -376,13 +397,36 @@ function valida_registrar() {
     document.getElementById("AddFiscal").classList.add("is-valid");
   }
 
-  if (
+  if(document.getElementById("regis_select_division").value == 0){
+    document.getElementById("sregis_select_division").innerHTML ="* Seleccione un división";
+    document.getElementById("sregis_select_division").style.color = "red";
+    document.getElementById("regis_select_division").classList.add("is-invalid");
+  }else{
+
+    if(document.getElementById("registro_id_area").value == 0){
+      document.getElementById("sregistro_id_area").innerHTML ="* Seleccione un área";
+      document.getElementById("sregistro_id_area").style.color = "red";
+      document.getElementById("registro_id_area").classList.add("is-invalid");
+    }else{
+      document.getElementById("sregistro_id_area").innerHTML ="";
+      document.getElementById("registro_id_area").classList.remove("is-invalid");
+      document.getElementById("registro_id_area").classList.add("is-valid");
+    }
+  
+    document.getElementById("sregis_select_division").innerHTML ="";
+    document.getElementById("regis_select_division").classList.remove("is-invalid");
+    document.getElementById("regis_select_division").classList.add("is-valid");
+  }
+
+  if(
     nro_providencia == 0 ||
     sujeto_pasivo == 0 ||
     rif == 0 ||
     domicilio_fisc == 0 ||
-    document.getElementById("AddFiscal").value == 0 
-  ) {
+    document.getElementById("AddFiscal").value == 0  ||
+    document.getElementById("regis_select_division").value == 0 || 
+    document.getElementById("registro_id_area").value == 0
+  ){
     //variable==0, indica que hubo error en la validacion de la etiqueta
     error = true;
   }
@@ -584,6 +628,27 @@ function buscar_status_ajax(datos) {
   });
 }
 
+
+function regis_buscar_division_area(datos) {
+  $.ajax({
+    url: "",
+    type: "POST",
+    contentType: false,
+    data: datos,
+    processData: false,
+    cache: false,
+    success: (response) => {
+      document.getElementById("regis_seleccionar_area").innerHTML = response;
+    },
+    error: (err) => {
+      Toast.fire({
+        icon: res.error,
+      });
+    },
+  });
+}
+
+
 function buscar_division_area(datos) {
   $.ajax({
     url: "",
@@ -593,7 +658,7 @@ function buscar_division_area(datos) {
     processData: false,
     cache: false,
     success: (response) => {
-      alert(response);
+      document.getElementById("seleccionar_area").innerHTML = response;
     },
     error: (err) => {
       Toast.fire({

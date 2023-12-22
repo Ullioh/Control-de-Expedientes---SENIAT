@@ -3,7 +3,7 @@ namespace modelo;
 use config\connect\connectDB as connectDB;
 class RegistroExpedienteModelo extends connectDB
 {
-    public function registrarE($supervisor,$nro_providencia,$sujeto_pasivo,$rif,$domicilio_fiscal,$fiscal_A)
+    public function registrarE($supervisor,$nro_providencia,$sujeto_pasivo,$rif,$domicilio_fiscal,$fiscal_A,$id_area)
     {
         $validar_registro = $this->validar_registro($nro_providencia);
         if ($validar_registro==false) {
@@ -16,6 +16,7 @@ class RegistroExpedienteModelo extends connectDB
                 sujetoP,
                 RifSP,
                 DomicilioFiscal,
+                id_area_expediente,
                 id_estado_expedientes
                 )
             VALUES(
@@ -23,6 +24,7 @@ class RegistroExpedienteModelo extends connectDB
                 '$sujeto_pasivo',
                 '$rif',
                 '$domicilio_fiscal',
+                '$id_area',
                 '2'
             )");
 
@@ -158,7 +160,7 @@ class RegistroExpedienteModelo extends connectDB
 
     public function listar()
     {
-        $resultado = $this->conex->prepare("SELECT *,expedientes.id as id_expedientes, user.id as id_usuario FROM expedientes,estado_expediente,userxexpediente,user WHERE expedientes.id_estado_expedientes = estado_expediente.id and expedientes.id = userxexpediente.id_expediente AND userxexpediente.id_user = user.id");
+        $resultado = $this->conex->prepare("SELECT *,expedientes.id as id_expedientes, user.id as id_usuario FROM expedientes,estado_expediente,userxexpediente,user,area_expediente, division_expediente WHERE expedientes.id_estado_expedientes = estado_expediente.id and expedientes.id = userxexpediente.id_expediente AND userxexpediente.id_user = user.id and expedientes.id_area_expediente = area_expediente.id and division_expediente.id = area_expediente.id_division_expediente and division_expediente.nombre_division = 'División de Fiscalización'");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -182,6 +184,80 @@ class RegistroExpedienteModelo extends connectDB
         return $respuestaArreglo;
     }
 
+    public function regis_buscarArea($id_division)
+    {
+        $resultado = $this->conex->prepare("SELECT * FROM area_expediente WHERE id_division_expediente = '$id_division'");
+        $respuestaArreglo = [];
+        try {
+            $resultado->execute();
+            $respuestaArreglo = $resultado->fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    
+        // Generar las opciones del select
+        $optionsHTML = '';
+        foreach ($respuestaArreglo as $fila) {
+            $optionsHTML .= '<option value="' . $fila['id'] . '">' . $fila['nombre_area'] . '</option>';
+        }
+    
+        // Incorporar el select en el HTML
+        $selectHTML = '<div class="input-group mb-1">';
+        $selectHTML .= '<label class="input-group-text" for="registro_id_area">Área</label>';
+        $selectHTML .= '<select class="form-select" id="registro_id_area">';
+        $selectHTML .= '<option value="0" selected>Seleccionar área</option>';
+        $selectHTML .= $optionsHTML; // Agregar las opciones generadas dinámicamente
+        $selectHTML .= '</select> <spam id="sregistro_id_area"></spam>';
+        $selectHTML .= '</div>';    
+        // Retornar el select HTML
+        return $selectHTML;
+    }
+    
+    public function buscarArea($id_division)
+    {
+        $resultado = $this->conex->prepare("SELECT * FROM area_expediente WHERE id_division_expediente = '$id_division'");
+        $respuestaArreglo = [];
+        try {
+            $resultado->execute();
+            $respuestaArreglo = $resultado->fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    
+        // Generar las opciones del select
+        $optionsHTML = '';
+        foreach ($respuestaArreglo as $fila) {
+            $optionsHTML .= '<option value="' . $fila['id'] . '">' . $fila['nombre_area'] . '</option>';
+        }
+    
+        // Incorporar el select en el HTML
+        $selectHTML = '<div class="input-group mb-1">';
+        $selectHTML .= '<label class="input-group-text" for="id_area">Área</label>';
+        $selectHTML .= '<select class="form-select" id="id_area">';
+        $selectHTML .= '<option value="0" selected>Seleccionar área</option>';
+        $selectHTML .= $optionsHTML; // Agregar las opciones generadas dinámicamente
+        $selectHTML .= '</select>';
+        $selectHTML .= '</div>';
+        $selectHTML .= '<div class="d-flex justify-content-center" id="enviar_expediente"><button type="button" onclick="enviar_expediente()" class="btn btn-outline-primary">Despachar expediente</button></div>';
+    
+        // Retornar el select HTML
+        return $selectHTML;
+    }
+
+    public function actualizar_area_expediente($id_area,$id_expediente)
+    {
+        try {
+            $this->conex->query("UPDATE expedientes SET id_area_expediente = '$id_area' WHERE id = '$id_expediente'");
+            $respuesta["resultado"]=1;
+            $respuesta["mensaje"]="Modificación exitosa.";
+        } catch (Exception $e) {
+            $respuesta['resultado'] = 0;
+            $respuesta['mensaje'] = $e->getMessage();
+        }
+        return $respuesta;
+    }
+
+    
     public function listar_fiscal()
     {
         $resultado = $this->conex->prepare("SELECT * FROM user WHERE nombre_rol = 'Fiscal'");

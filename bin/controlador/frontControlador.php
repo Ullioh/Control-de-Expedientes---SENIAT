@@ -5,9 +5,9 @@
 	use config\componentes\configSistema as configSistema;
 
 	class frontControlador extends configSistema{
-		private $directory;
-		private $pagina;
-		private $controlador;
+		private $directory;//bin/controlador
+		private $pagina;//login
+		private $controlador; //controlador.php
 
 		public function __construct($request){
 			if (isset($request["pagina"])) {

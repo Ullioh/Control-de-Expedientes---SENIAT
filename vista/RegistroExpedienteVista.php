@@ -75,6 +75,20 @@
                           </select>
                             <spam id="sAddFiscal"></spam>
                           </div>
+                          <div class="col-12">
+                          <div class="input-group mb-3">
+                            <label class="input-group-text" for="regis_select_division">División</label>
+                            <select class="form-select" id="regis_select_division">
+                              <option value="0" selected>Seleccionar división</option>
+                              <?php foreach ($r3 as $key => $value) {?>
+                                <option value="<?=$value['id'];?>"><?=$value['nombre_division'];?></option>
+                              <?php }?>
+                            </select>
+                            <spam id="sregis_select_division"></spam>
+                          </div>
+                          <div id="regis_seleccionar_area">
+                          </div>
+                          </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button type="button" id="enviar" class="btn btn-primary">Registrar Usuario</button>
@@ -94,6 +108,8 @@
                       <tr>
                       <th scope="col">Nro de Expediente</th>
                         <th scope="col">Fiscal Asignado</th>
+                        <th scope="col">División</th>
+                        <th scope="col">Área</th>
                         <th scope="col">Supervisor asignado</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Cambiar Estado</th>
@@ -108,6 +124,12 @@
                         <td> <?php echo $valor['NroProvi']; ?></td>
                         <td>
                         <?php echo $valor['nombre_user']; ?>
+                        </td>
+                        <td>
+                          <?php echo $valor['nombre_division']; ?>
+                        </td>
+                        <td>
+                          <?php echo $valor['nombre_area']; ?>
                         </td>
                         <td>
                           <?php echo $valor['supervisor']; ?>
@@ -130,7 +152,7 @@
                             <div class="modal-dialog modal-dialog-scrollable">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Cambiar el estado del Expediente</h1>
+                                  <h1 class="modal-title fs-4" id="staticBackdropLabel">Cambiar el estado del Expediente</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
                                   <div class="modal-body m-3">
@@ -140,6 +162,7 @@
                                       <button type="button" id="btnRevision" class="btn btn-success rounded-pill" onclick="cambiarEstado(this)">En revision</button> 
                                       <!-- <button type="button" class="btn btn-success rounded-pill">Despachar</button>
                                       <div class="modal-footer"> -->
+                                      <h1 class="modal-title fs-5 text-danger" id="staticBackdropLabel">Despacho de Expedientes</h1>
                                       <div class="input-group mb-1">
                                         <label class="input-group-text" for="select_division">División</label>
                                         <select class="form-select" id="select_division">
@@ -149,12 +172,7 @@
                                           <?php }?>
                                         </select>
                                       </div>
-
-                                      <div class="input-group mb-1">
-                                        <label class="input-group-text" for="inputGroupSelect01">Área</label>
-                                        <select class="form-select" id="inputGroupSelect01">
-                                          <option selected>Seleccionar área</option>
-                                        </select>
+                                      <div id="seleccionar_area">
                                       </div>
                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                     </form>
@@ -230,8 +248,10 @@
                     </tbody>
                     <tfooter>
                       <tr>
-                        <th scope="col">Nro de Expediente</th>
+                      <th scope="col">Nro de Expediente</th>
                         <th scope="col">Fiscal Asignado</th>
+                        <th scope="col">División</th>
+                        <th scope="col">Área</th>
                         <th scope="col">Supervisor asignado</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Cambiar Estado</th>

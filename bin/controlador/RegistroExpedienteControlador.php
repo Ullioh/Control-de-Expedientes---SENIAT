@@ -17,7 +17,7 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
         $accion = $_POST['accion'];
         $modulo = 'Expedientes:';
     if ($accion == 'registrar') {
-        $response = $Expediente->registrarE($_POST['supervisor'],$_POST['nro_providencia'],$_POST['sujeto_pasivo'],$_POST['rif'],$_POST['domicilio_fiscal'],$_POST['fiscal_A']);
+        $response = $Expediente->registrarE($_POST['supervisor'],$_POST['nro_providencia'],$_POST['sujeto_pasivo'],$_POST['rif'],$_POST['domicilio_fiscal'],$_POST['fiscal_A'],$_POST['id_area']);
         if ($response["resultado"]==1) {
             echo json_encode([
                 'estatus' => '1',
@@ -117,14 +117,37 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
             }
             return 0;
             exit;
-        }
-        else if ($accion == 'buscar_area') {
+        }else if ($accion == 'regis_buscar_area') {
+            $datos = $Expediente->regis_buscarArea($_POST['regis_id_division']);
+            echo $datos;
+            return 0;
+            exit;
+        }else if ($accion == 'buscar_area') {
             $datos = $Expediente->buscarArea($_POST['id_division']);
+            echo $datos;
+            return 0;
+            exit;
+        }else if ($accion == 'update_area_expediente') {
+            $response = $Expediente->actualizar_area_expediente($_POST['id_area'],$_POST['id_expediente']);
+            if ($response['resultado']== 1) {
+                echo json_encode([
+                    'estatus' => '1',
+                    'icon' => 'success',
+                    'title' => $modulo,
+                    'message' => $response['mensaje']
+                ]);
+            }else {
+                echo json_encode([
+                    'estatus' => '2',
+                    'icon' => 'info',
+                    'title' => $modulo,
+                    'message' => $response['mensaje']
+                ]);
+            }
             return 0;
             exit;
         }
     }
-
     $r1 = $Expediente->listar();
     $r2 = $Expediente->listar_fiscal();
     $r3 = $Expediente->listar_division();
