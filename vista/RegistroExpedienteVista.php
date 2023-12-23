@@ -21,7 +21,7 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Lista de Expedientes</h5>
+              <h5 class="card-title">Lista de Expedientes Fiscalizacion</h5>
               
               <button type="button" class="btn btn-primary m-1" id="nuevo">
                 Registrar Expediente
@@ -42,7 +42,7 @@
                           <input type="hidden" name="id" class="form-control" id="id_expediente">
                           <div class="col-12">
                             <label for="supervisor" class="form-label">Supervisor</label>
-                            <input type="text" name="supervisor" class="form-control" id="supervisor" value ="<?php echo $_SESSION['usuario']["nombre_apellido"] ?>">
+                            <input type="text" name="supervisor" class="form-control" id="supervisor" value ="<?php echo $_SESSION['usuario']["cedula"] . ", ". $_SESSION['usuario']["nombre_apellido"] ?>">
                             <spam id="ssupervisor"></spam>
                           </div>
                           <div class="col-12">
@@ -147,7 +147,7 @@
                         </td> 
 
                         <td>
-                          <button type="button" onclick="buscar_status_expediente(<?=$valor['id_expedientes'];?>)" class="btn btn-primary ri-article-line" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"></button> 
+                          <button type="button" onclick="buscar_status_expediente(<?=$valor['id_expedientes'];?>, <?=$valor['NroProvi'];?>);" class="btn btn-primary ri-article-line" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"></button> 
                           <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-scrollable">
                               <div class="modal-content">
@@ -158,6 +158,7 @@
                                   <div class="modal-body m-3">
                                     <form class="row g-3 needs-validation" novalidate>
                                       <input type="hidden" id="expedi_status">
+                                      <input type="hidden" id="nro_expediente">
                                       <button type="button" id="btnProceso" class="btn btn-warning rounded-pill" onclick="cambiarEstado(this)">En proceso</button>
                                       <button type="button" id="btnRevision" class="btn btn-success rounded-pill" onclick="cambiarEstado(this)">En revision</button> 
                                       <!-- <button type="button" class="btn btn-success rounded-pill">Despachar</button>

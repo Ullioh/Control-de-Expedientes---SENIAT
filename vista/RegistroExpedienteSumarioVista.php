@@ -1,224 +1,293 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
- <?php include_once "bin/component/head.php";?>
+<?php include_once "bin/component/head.php";?>
+
 <body>
-  <?php include_once "bin/component/header.php";?>
-  <?php include_once "bin/component/sidebar.php";?>
+                      <?php include_once "bin/component/header.php";?>
 
-
+                      <?php include_once "bin/component/sidebar.php";?>
+                      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <main id="main" class="main">
 
     <div class="pagetitle">
       <h1>Tabla de Datos</h1>
+ 
     </div><!-- End Page Title -->
 
-<!-- seccion de la tabla-->
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
-
           <div class="card">
             <div class="card-body">
+              <h5 class="card-title">Lista de Expedientes Sumario</h5>
+              
+              <button type="button" class="btn btn-primary m-1" id="nuevo">
+                Registrar Expediente
+              </button>
 
-              <h5 class="card-title">Lista de Expedientes</h5>
+              <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="titulo"></h4>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
 
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-              Registrar Expediente
-            </button>
-
-<!-- Modal 1 registro de expediente -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-              <div class="modal-dialog modal-dialog-scrollable">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Registrar Expediente</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-
-                <form class="row g-3 needs-validation" novalidate>
-                    <div class="col-12">
-                      <label for="yourNro" class="form-label">Nro de Providencia</label>
-                      <input type="Text" name="Nro" class="form-control" id="NroProvidencia" required>
-                      <div class="invalid-feedback">Por Favor, Ingresa el Nro de Providencia!</div>
+                      <div class="modal-body">
+                        <form class="row g-3 needs-validation" novalidate>
+                          <input type="hidden" name="accion" class="form-control" id="accion">
+                          <input type="hidden" name="id" class="form-control" id="id_expedient_user">
+                          <input type="hidden" name="id" class="form-control" id="id_expediente">
+                          <div class="col-12">
+                            <label for="supervisor" class="form-label">Supervisor</label>
+                            <input type="text" name="supervisor" class="form-control" id="supervisor" value ="<?php echo $_SESSION['usuario']["cedula"] . ", ". $_SESSION['usuario']["nombre_apellido"] ?>">
+                            <spam id="ssupervisor"></spam>
+                          </div>
+                          <div class="col-12">
+                            <label for="NroProvidencia" class="form-label">Nro de Providencia</label>
+                            <input type="Text" name="Nro" class="form-control" id="NroProvidencia" required>
+                            <spam id="sNroProvidencia"></spam>
+                          </div>
+                          <div class="col-12">
+                            <label for="SuPa" class="form-label">Sujeto Pasivo</label>
+                            <input type="Text" name="Sujeto Pasivo" class="form-control" id="SuPa" required>
+                            <spam id="sSuPa"></spam>
+                          </div>
+                          <div class="col-12">
+                            <label for="yourRifC" class="form-label">Rif</label>
+                            <input type="Text" name="RifC" class="form-control" id="yourRifC" required>
+                            <spam id="syourRifC"></spam>
+                          </div>
+                          <div class="col-12">
+                            <label for="DomiFI" class="form-label">Domicilio Fiscal</label>
+                            <input type="Text" name="RifC" class="form-control" id="DomiFI" required>
+                            <spam id="sDomiFI"></spam>
+                          </div>
+                          <div class="col-12">
+                            <label for="AddFiscal" class="form-label">Asignar Fiscal</label>
+                            <select class="form-control" id="AddFiscal">
+                            <option value="0" selected>--Seleccione--</option>
+                            <?php foreach ($r2 as $key => $value) {?>
+                              <option value="<?=$value['id'];?>"><?=$value['nombre_user'];?></option>
+                            <?php }?>
+                          </select>
+                            <spam id="sAddFiscal"></spam>
+                          </div>
+                          <div class="col-12">
+                          <div class="input-group mb-3">
+                            <label class="input-group-text" for="regis_select_division">División</label>
+                            <select class="form-select" id="regis_select_division">
+                              <option value="0" selected>Seleccionar división</option>
+                              <?php foreach ($r3 as $key => $value) {?>
+                                <option value="<?=$value['id'];?>"><?=$value['nombre_division'];?></option>
+                              <?php }?>
+                            </select>
+                            <spam id="sregis_select_division"></spam>
+                          </div>
+                          <div id="regis_seleccionar_area">
+                          </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" id="enviar" class="btn btn-primary">Registrar Usuario</button>
+                          </div>
+                        </form>
                     </div>
-                    <div class="col-12">
-                      <label for="yourContribuyente" class="form-label">Sujeto Pasivo</label>
-                      <input type="Text" name="Sujeto Pasivo" class="form-control" id="SuPa" required>
-                      <div class="invalid-feedback">Por Favor, Ingresa el sujeto Pasivo!</div>
-                    </div>
-                    <div class="col-12">
-                      <label for="yourRif" class="form-label">Rif</label>
-                      <input type="Text" name="RifC" class="form-control" id="yourRifC" required>
-                      <div class="invalid-feedback">Por Favor, Ingresa el Rif de Providencia!</div>
-                    </div>
-                    <div class="col-12">
-                      <label for="DomiciFi" class="form-label">Domicilio Fiscal</label>
-                      <input type="Text" name="RifC" class="form-control" id="DomiFI" required>
-                      <div class="invalid-feedback">Por Favor, Ingresa el Domicilio Fiscal!</div>
-                    </div>
-                    <div class="col-12">
-                    <label for="DomiciFi" class="form-label">Asignar Fiscal</label>
-                    <select class="form-control" id="AddFiscal">
-                      <option>Fiscal 1</option>
-                      <option>Fiscal 2</option>
-                      <option>Fiscal 3</option>
-                      <option>Fiscal 4</option>
-                      <option>Fiscal 5</option>
-                    </select>
-                  </div>
-                     <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Registrar Expediente</button>
-                  </div>
-                </form>
                   </div>
                 </div>
               </div>
-        </div>
-<!-- final de Modal 1 -->
 
+          <div class="card border">
+            <div class="table-responsive p-2">
+              <div class="d-flex flex-wrap justify-content-between m-1">
+                </div>
+                  <table id="funcionpaginacion" class="table datatable">
+                    <thead>
+                      <tr>
+                      <th scope="col">Nro de Expediente</th>
+                        <th scope="col">Fiscal Asignado</th>
+                        <th scope="col">División</th>
+                        <th scope="col">Área</th>
+                        <th scope="col">Supervisor asignado</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Cambiar Estado</th>
+                        <th>Detalles de Expediente</th>
+                        <th>Editar Expediente</th>
+                        <th>Eliminar Expediente</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($r1 as $valor) {?>
+                      <tr>
+                        <td> <?php echo $valor['NroProvi']; ?></td>
+                        <td>
+                        <?php echo $valor['nombre_user']; ?>
+                        </td>
+                        <td>
+                          <?php echo $valor['nombre_division']; ?>
+                        </td>
+                        <td>
+                          <?php echo $valor['nombre_area']; ?>
+                        </td>
+                        <td>
+                          <?php echo $valor['supervisor']; ?>
+                        </td>
+                        <td> 
+                        <?php if($valor['estado_exp'] == "En proceso" ||  $valor['estado_exp'] == "en proceso"){ ?>
 
-<!-- Inicion de la tabla de expedientes -->
-      <table class="table datatable">
-<!-- Cabesera de la tabla -->
-                <thead>
-                  <tr>
-                    <th scope="col">Nro de Expediente</th>
-                    <th scope="col">Fiscal Asignado</th>
-                    <th scope="col">Supervisor asignado</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Cambiar Estado</th>
-                    <th>Detalles de Expediente</th>
-                  </tr>
-                </thead>
-<!-- Final de la cabsera de la tabla -->
+                          <span class="badge bg-warning text-dark"><?php echo $valor['estado_exp']; ?></span>
 
-<!-- Inicion de los dats de la tabla -->
-  <tbody>
-              <tr>
-                  <td>
-                    0000-0000-0000
-                  </td>
+                        <?php }else{ ?>
 
-                  <td>
-                    Nombre Fisca
-                  </td>
-                    
-                  <td>
-                    Nombre Supervisor
-                  </td>
-
-                  <td> 
-                    <span class="badge bg-success">En Revision</span>
-                  <td> 
-                    <button type="button" class="btn btn-primary ri-article-line" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"></button> 
-<!-- modal de cambiar estados de los expedientes-->
-                    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <span class="badge bg-success text-dark"><?php echo $valor['estado_exp']; ?></span>
                           
-                          <div class="modal-dialog modal-dialog-scrollable">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Cambiar el estado del Expediente</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
+                          <?php } ?>
+                        </td> 
 
-                          <form class="row g-3 needs-validation" novalidate>
-                                 <button type="button" class="btn btn-secondary rounded-pill">En revision</button> 
-                                 <button type="button" class="btn btn-warning rounded-pill">En proceso</button>
-                                 <!-- <button type="button" class="btn btn-success rounded-pill">Despachar</button>
-                                 <div class="modal-footer"> -->
-                                  <select class="form-select" aria-label="Default select example">
-                                  <option selected=""> despachar expediente?</option>
-                                  <option value="1">A oficina 1</option>
-                                  <option value="2">A oficna 2</option>
-                                  <option value="3">A oficina 3</option>
-                                </select>
+                        <td>
+                        <button type="button" onclick="buscar_status_expediente(<?=$valor['id_expedientes'];?>, <?=$valor['NroProvi'];?>);" class="btn btn-primary ri-article-line" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"></button>  
+                          <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-4" id="staticBackdropLabel">Cambiar el estado del Expediente</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body m-3">
+                                    <form class="row g-3 needs-validation" novalidate>
+                                      <input type="hidden" id="expedi_status">
+                                      <input type="hidden" id="nro_expediente">
+                                      <button type="button" id="btnProceso" class="btn btn-warning rounded-pill" onclick="cambiarEstado(this)">En proceso</button>
+                                      <button type="button" id="btnRevision" class="btn btn-success rounded-pill" onclick="cambiarEstado(this)">En revision</button> 
+                                      <!-- <button type="button" class="btn btn-success rounded-pill">Despachar</button>
+                                      <div class="modal-footer"> -->
+                                      <h1 class="modal-title fs-5 text-danger" id="staticBackdropLabel">Despacho de Expedientes</h1>
+                                      <div class="input-group mb-1">
+                                        <label class="input-group-text" for="select_division">División</label>
+                                        <select class="form-select" id="select_division">
+                                          <option selected>Seleccionar división</option>
+                                          <?php foreach ($r3 as $key => $value) {?>
+                                            <option value="<?=$value['id'];?>"><?=$value['nombre_division'];?></option>
+                                          <?php }?>
+                                        </select>
+                                      </div>
+                                      <div id="seleccionar_area">
+                                      </div>
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    </form>
 
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                  </form>
-                              </div>
-                            </div>
-                          </div>
-                    </div>
-<!-- final de cambiar estados de los expedientes-->
-                  </td>
-
-                  <td>
-                    <button type="button" class="btn btn-primary ri-add-box-line" data-bs-toggle="modal" data-bs-target="#staticBackdrop3"></button> 
-<!-- Modal De datos de expedientes -->
-                    <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-scrollable">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Datos de Expediente</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-
-                            
-                                <div class="col-12">
-                                  <label for="yourNro" class="form-label" style="color: red">Nro de Providencia</label>
-                                  <div class="col-12">
-                                  <h5 class="form-label">000-0200-000-200-582489</h5>
+                                  </div>
                                 </div>
-                                  
-                                </div>
-                                <div class="col-12">
-                                  <label style="color: red" class="form-label">Sujeto Pasivo</label>
-                                </div>
-                                <div class="col-12">
-                                  <h5 class="form-label">Nro Sujeto Pasivo</h5>
-                                </div>
-                                
-                                <div class="col-12">
-                                  <label style="color: red" for="yourRif" class="form-label">Rif</label>
-                                  <div class="col-12">
-                                  <h5 class="form-label">Nro fiscal</h5>
-                                </div>
-                                  
-                                </div>
-                                <div class="col-12">
-                                  <label style="color: red" class="form-label">Domicilio Fiscal</label>
-                                <div class="col-12">
-                                  <h5 class="form-label">Calle tal Carrera tal</h5>
-                                </div>
-                                <div class="col-12">
-                                <label style="color: red"class="form-label">Fiscal Asignado</label>
-                                <div class="col-12">
-                                  <h5 class="form-label">Nombre Fiscal</h5>
-                                </div>
-                                <div class="col-12">
-                                <label style="color: red" class="form-label">Fecha de registro</label>
-                                <div class="col-12">
-                                  <h5 class="form-label">00/00/0000</h5>
-                                </div>
-                                <label style="color: red" class="form-label">Fecha de Despacho</label>
-                                <div class="col-12">
-                                  <h5 class="form-label">00/00/0000</h5>
-                                </div>
-                                
-                                 <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                
-                              </div>
                               </div>
                             </div>
-                          </div>
-                    </div> </td>    
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-primary ri-add-box-line" data-bs-toggle="modal" data-bs-target="#staticBackdrop3"></button> 
+                            <!-- Modal De datos de expedientes -->
+                          <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Datos de Expediente</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
 
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</section>
-</main> <!-- End #main -->
+                                <div class="modal-body">
+                                <div class="container mt-2">
+                                  <table class="table table-bordered">
+                                      <tbody>
+                                          <tr>
+                                              <th>Nro de Providencia</th>
+                                              <td><?php echo $valor['NroProvi']; ?></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Sujeto Pasivo</th>
+                                              <td><?php echo $valor['sujetoP']; ?></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Rif</th>
+                                              <td><?php echo $valor['RifSP']; ?></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Domicilio Fiscal</th>
+                                              <td><?php echo $valor['DomicilioFiscal']; ?></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Fiscal Asignado</th>
+                                              <td><?php echo $valor['nombre_user']; ?></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Fecha de registro</th>
+                                              <td>00/00/0000</td>
+                                          </tr>
+                                          <tr>
+                                              <th>Fecha de Despacho</th>
+                                              <td>00/00/0000</td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>  
+                        </td>  
+                        <td> 
+                        <button type="button" class="btn btn-primary ri-edit-line" onclick="cargar_datos(<?=$valor['id_expedientes'];?>, <?=$valor['id_usuario'];?>);">
+                        </button>
+                        </td>
+                        <td>
+                          </button>
+                            <button type="button" class="btn btn-danger ri-delete-bin-2-line" onclick="eliminar(<?=$valor['id_expedientes'];?>, <?=$valor['id_usuario'];?>);"> 
+                          </button> 
+                        </td>
+                        <?php } ?>
+                    </tbody>
+                    <tfooter>
+                      <tr>
+                      <th scope="col">Nro de Expediente</th>
+                        <th scope="col">Fiscal Asignado</th>
+                        <th scope="col">División</th>
+                        <th scope="col">Área</th>
+                        <th scope="col">Supervisor asignado</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Cambiar Estado</th>
+                        <th>Detalles de Expediente</th>
+                        <th>Editar Expediente</th>
+                        <th>Eliminar Expediente</th>
+                      </tr>
+                    </tfooter>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+  </main><!-- End #main -->
+  
+  <?php include_once "bin/component/footer.php";?>
+  <script src="content/js/ExpedientesSumario.js"></script>
+  <script>
 
-    <?php include_once "bin/component/footer.php";?>
+
+    document.addEventListener("DOMContentLoaded", function() {
+      var supervisorInput = document.getElementById("supervisor");
+      
+      // Deshabilitar el campo
+      supervisorInput.disabled = true;
+
+      // Evitar que se modifique mediante el inspector de código
+      supervisorInput.addEventListener("input", function(event) {
+        event.preventDefault();
+        return false;
+      });
+    });
+  </script>
+</body>
 
 </html>

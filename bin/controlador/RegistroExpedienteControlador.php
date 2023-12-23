@@ -1,5 +1,6 @@
 <?php
 use modelo\RegistroExpedienteModelo as Expedientes;
+use modelo\BitacoraExpedientesModelo as bitacoraExpedientes;
 use config\componentes\configSistema as configSistema;
 session_start();
 if (!isset($_SESSION['usuario'])) {
@@ -7,6 +8,7 @@ if (!isset($_SESSION['usuario'])) {
 }
 $config = new configSistema;
 $Expediente = new Expedientes();
+$bitacoraExpedientes = new bitacoraExpedientes();
 if (!is_file($config->_Dir_Model_().$pagina.$config->_MODEL_())) {
     echo "Falta definir la clase " . $pagina;
     exit;
@@ -16,6 +18,7 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
     if (isset($_POST['accion'])) {
         $accion = $_POST['accion'];
         $modulo = 'Expedientes:';
+        $division_actual = 'División de Fiscalizacíon';
     if ($accion == 'registrar') {
         $response = $Expediente->registrarE($_POST['supervisor'],$_POST['nro_providencia'],$_POST['sujeto_pasivo'],$_POST['rif'],$_POST['domicilio_fiscal'],$_POST['fiscal_A'],$_POST['id_area']);
         if ($response["resultado"]==1) {
@@ -129,6 +132,9 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
             exit;
         }else if ($accion == 'update_area_expediente') {
             $response = $Expediente->actualizar_area_expediente($_POST['id_area'],$_POST['id_expediente']);
+            $division_despacho = $bitacoraExpedientes->buscar_division($_POST['id_area']);
+            $movimiento_expediente = "Se despacho el expediente de la ". $division_actual . " a la ". $division_despacho[0]["nombre_division"].".";
+            $bitacoraExpedientes->registrar_bitacora($_POST['supervisor'],$_POST['nro_expediente'],$movimiento_expediente,$division_despacho[0]["nombre_division"]);
             if ($response['resultado']== 1) {
                 echo json_encode([
                     'estatus' => '1',

@@ -24,7 +24,7 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
             if($responseU == true){
                 $infoU = $login->datos_UserU();
                 foreach ($infoU as $datos) {
-                    $_SESSION['usuario'] = array('id' => $datos['id'], 'nombre_apellido' => $datos['nombre_user'], 'id_area' => $datos['id_area'], 'nombre_rol' => $datos['nombre_rol'], 'password' => $datos['password']);
+                    $_SESSION['usuario'] = array('id' => $datos['id'],'cedula' => $datos['cedula_user'], 'nombre_apellido' => $datos['nombre_user'], 'id_area' => $datos['id_area'], 'nombre_rol' => $datos['nombre_rol'], 'password' => $datos['password']);
                 }
                 echo json_encode([
                     'estatus' => '1',
