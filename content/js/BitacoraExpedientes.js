@@ -264,8 +264,6 @@ function enviar_expediente(){
   var datos = new FormData();
   datos.append("accion", "update_area_expediente");
   datos.append("id_expediente", document.getElementById("expedi_status").value);
-  datos.append("nro_expediente", document.getElementById("nro_expediente").value);
-  datos.append("supervisor", document.getElementById("supervisor").value);
   datos.append("id_area", document.getElementById("id_area").value);
   enviaAjax(datos);
 }
@@ -310,9 +308,8 @@ function validarkeyup(er, etiqueta, etiquetamensaje, mensaje) {
 
 
 
-function buscar_status_expediente(id_expediente,nro_expediente) {
+function buscar_status_expediente(id_expediente) {
   document.getElementById("expedi_status").value = id_expediente;
-  document.getElementById("nro_expediente").value = nro_expediente;
   var datos = new FormData();
   datos.append("accion", "buscar_status_expediente");
   datos.append("id_expediente", id_expediente);

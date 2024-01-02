@@ -21,7 +21,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed"  href="?pagina=RegistroExpediente">
-          <i class="bi bi bi-layout-text-window-reverse"></i><span>Estado de Expedientes</span>
+          <i class="bi bi bi-layout-text-window-reverse"></i><span>Estado de Expedientes Fiscalización</span>
         </a>
       </i><!-- End Tables Nav -->
 
@@ -30,6 +30,16 @@
           <i class="bi bi bi-layout-text-window-reverse"></i><span>Estado de Expedientes Sumario</span>
         </a>
       </li><!-- End Tables Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="?pagina=BitacoraExpedientes">
+          <i class="bi bi bi-layout-text-window-reverse"></i><span>Bitacora de expedientes</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="?pagina=ReporteExpediente">
+          <i class="bi bi bi-layout-text-window-reverse"></i><span>Reporte de Expediente</span>
+        </a>
+      </li>
             <li class="nav-item">
         <a class="nav-link collapsed"  href="?pagina=TablaUsuario">
           <i class="ri-file-user-line"></i><span>Estado de Usuarios</span>

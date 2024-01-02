@@ -1,7 +1,7 @@
 <?php
 namespace modelo;
 use config\connect\connectDB as connectDB;
-class RegistroExpedienteModelo extends connectDB
+class RegistroExpedienteSumarioModelo extends connectDB
 {
     public function registrarE($supervisor,$nro_providencia,$sujeto_pasivo,$rif,$domicilio_fiscal,$fiscal_A,$id_area)
     {
@@ -160,7 +160,7 @@ class RegistroExpedienteModelo extends connectDB
 
     public function listar()
     {
-        $resultado = $this->conex->prepare("SELECT *,expedientes.id as id_expedientes, user.id as id_usuario FROM expedientes,estado_expediente,userxexpediente,user,area_expediente, division_expediente WHERE expedientes.id_estado_expedientes = estado_expediente.id and expedientes.id = userxexpediente.id_expediente AND userxexpediente.id_user = user.id and expedientes.id_area_expediente = area_expediente.id and division_expediente.id = area_expediente.id_division_expediente and division_expediente.nombre_division = 'División de Fiscalización'");
+        $resultado = $this->conex->prepare("SELECT *,expedientes.id as id_expedientes, user.id as id_usuario FROM expedientes,estado_expediente,userxexpediente,user,area_expediente, division_expediente WHERE expedientes.id_estado_expedientes = estado_expediente.id and expedientes.id = userxexpediente.id_expediente AND userxexpediente.id_user = user.id and expedientes.id_area_expediente = area_expediente.id and division_expediente.id = area_expediente.id_division_expediente and division_expediente.nombre_division = 'División de Sumario Administrativo'");
         $respuestaArreglo = [];
         try {
             $resultado->execute();

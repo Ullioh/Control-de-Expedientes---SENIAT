@@ -8,7 +8,7 @@
                       <?php include_once "bin/component/header.php";?>
 
                       <?php include_once "bin/component/sidebar.php";?>
-
+                      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <main id="main" class="main">
 
     <div class="pagetitle">
@@ -21,7 +21,7 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Lista de Expedientes</h5>
+              <h5 class="card-title">Lista de Expedientes Fiscalizacion</h5>
               
               <button type="button" class="btn btn-primary m-1" id="nuevo">
                 Registrar Expediente
@@ -38,10 +38,11 @@
                       <div class="modal-body">
                         <form class="row g-3 needs-validation" novalidate>
                           <input type="hidden" name="accion" class="form-control" id="accion">
-                          <input type="hidden" name="id" class="form-control" id="id">
+                          <input type="hidden" name="id" class="form-control" id="id_expedient_user">
+                          <input type="hidden" name="id" class="form-control" id="id_expediente">
                           <div class="col-12">
                             <label for="supervisor" class="form-label">Supervisor</label>
-                            <input type="text" name="supervisor" class="form-control" id="supervisor" value ="<?php echo $_SESSION['usuario']["nombre_apellido"] ?>">
+                            <input type="text" name="supervisor" class="form-control" id="supervisor" value ="<?php echo $_SESSION['usuario']["cedula"] . ", ". $_SESSION['usuario']["nombre_apellido"] ?>">
                             <spam id="ssupervisor"></spam>
                           </div>
                           <div class="col-12">
@@ -74,6 +75,20 @@
                           </select>
                             <spam id="sAddFiscal"></spam>
                           </div>
+                          <div class="col-12">
+                          <div class="input-group mb-3">
+                            <label class="input-group-text" for="regis_select_division">División</label>
+                            <select class="form-select" id="regis_select_division">
+                              <option value="0" selected>Seleccionar división</option>
+                              <?php foreach ($r3 as $key => $value) {?>
+                                <option value="<?=$value['id'];?>"><?=$value['nombre_division'];?></option>
+                              <?php }?>
+                            </select>
+                            <spam id="sregis_select_division"></spam>
+                          </div>
+                          <div id="regis_seleccionar_area">
+                          </div>
+                          </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button type="button" id="enviar" class="btn btn-primary">Registrar Usuario</button>
@@ -93,6 +108,8 @@
                       <tr>
                       <th scope="col">Nro de Expediente</th>
                         <th scope="col">Fiscal Asignado</th>
+                        <th scope="col">División</th>
+                        <th scope="col">Área</th>
                         <th scope="col">Supervisor asignado</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Cambiar Estado</th>
@@ -104,41 +121,60 @@
                     <tbody>
                     <?php foreach ($r1 as $valor) {?>
                       <tr>
-                      <td> <?php echo $valor['NroProvi']; ?></td>
+                        <td> <?php echo $valor['NroProvi']; ?></td>
                         <td>
                         <?php echo $valor['nombre_user']; ?>
                         </td>
                         <td>
-                        <?php echo $valor['supervisor']; ?>
+                          <?php echo $valor['nombre_division']; ?>
+                        </td>
+                        <td>
+                          <?php echo $valor['nombre_area']; ?>
+                        </td>
+                        <td>
+                          <?php echo $valor['supervisor']; ?>
                         </td>
                         <td> 
-                          <span class="badge bg-success"><?php echo $valor['estado_exp']; ?></span>
+                        <?php if($valor['estado_exp'] == "En proceso" ||  $valor['estado_exp'] == "en proceso"){ ?>
+
+                          <span class="badge bg-warning text-dark"><?php echo $valor['estado_exp']; ?></span>
+
+                        <?php }else{ ?>
+
+                          <span class="badge bg-success text-dark"><?php echo $valor['estado_exp']; ?></span>
+                          
+                          <?php } ?>
                         </td> 
+
                         <td>
-                          <button type="button" class="btn btn-primary ri-article-line" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"></button> 
-                            <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-dialog-scrollable">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Cambiar el estado del Expediente</h1>
+                          <button type="button" onclick="buscar_status_expediente(<?=$valor['id_expedientes'];?>, <?=$valor['NroProvi'];?>);" class="btn btn-primary ri-article-line" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"></button> 
+                          <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-4" id="staticBackdropLabel">Cambiar el estado del Expediente</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
-                                  <div class="modal-body">
-                                    
+                                  <div class="modal-body m-3">
                                     <form class="row g-3 needs-validation" novalidate>
-
-                                      <button type="button" class="btn btn-secondary rounded-pill">En revision</button> 
-                                      <button type="button" class="btn btn-warning rounded-pill">En proceso</button>
-
+                                      <input type="hidden" id="expedi_status">
+                                      <input type="hidden" id="nro_expediente">
+                                      <button type="button" id="btnProceso" class="btn btn-warning rounded-pill" onclick="cambiarEstado(this)">En proceso</button>
+                                      <button type="button" id="btnRevision" class="btn btn-success rounded-pill" onclick="cambiarEstado(this)">En revision</button> 
                                       <!-- <button type="button" class="btn btn-success rounded-pill">Despachar</button>
                                       <div class="modal-footer"> -->
-
-                                      <select class="form-select" aria-label="Default select example">
-                                        <option selected=""> despachar expediente</option>
-                                        <option value="1">A oficina 1</option>
-                                        <option value="2">A oficna 2</option>
-                                        <option value="3">A oficina 3</option>
-                                      </select>
+                                      <h1 class="modal-title fs-5 text-danger" id="staticBackdropLabel">Despacho de Expedientes</h1>
+                                      <div class="input-group mb-1">
+                                        <label class="input-group-text" for="select_division">División</label>
+                                        <select class="form-select" id="select_division">
+                                          <option selected>Seleccionar división</option>
+                                          <?php foreach ($r3 as $key => $value) {?>
+                                            <option value="<?=$value['id'];?>"><?=$value['nombre_division'];?></option>
+                                          <?php }?>
+                                        </select>
+                                      </div>
+                                      <div id="seleccionar_area">
+                                      </div>
                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                     </form>
 
@@ -159,54 +195,40 @@
                                 </div>
 
                                 <div class="modal-body">
-                                  <div class="col-12">
-                                    <label for="yourNro" class="form-label" style="color: red">Nro de Providencia</label>
-                                    <div class="col-12">
-                                      <h5 class="form-label"><?php echo $valor['NroProvi']; ?></h5>
-                                    </div>
-                                  </div>
-
-                                  <div class="col-12">
-                                    <label style="color: red" class="form-label">Sujeto Pasivo</label>
-                                    <div class="col-12">
-                                      <h5 class="form-label"><?php echo $valor['sujetoP']; ?></h5>
-                                    </div>
-                                  </div>
-                                  
-                                  <div class="col-12">
-                                    <label style="color: red" for="yourRif" class="form-label">Rif</label>
-                                    <div class="col-12">
-                                    <h5 class="form-label"><?php echo $valor['RifSP']; ?></h5>
-                                  </div>
-                                    
-                                  <div class="col-12">
-                                    <label style="color: red" class="form-label">Domicilio Fiscal</label>
-                                    <div class="col-12">
-                                      <h5 class="form-label"><?php echo $valor['DomicilioFiscal']; ?></h5>
-                                    </div>
-                                  </div>
-
-                                  <div class="col-12">
-                                    <label style="color: red"class="form-label">Fiscal Asignado</label>
-                                    <div class="col-12">
-                                      <h5 class="form-label"><?php echo $valor['nombre_user']; ?></h5>
-                                    </div>
-                                  </div>
-
-                                  <div class="col-12">
-                                    <label style="color: red" class="form-label">Fecha de registro</label>
-                                    <div class="col-12">
-                                      <h5 class="form-label">00/00/0000</h5>
-                                    </div>
-                                  </div>
-
-                                  <div class="col-12">
-                                    <label style="color: red" class="form-label">Fecha de Despacho</label>
-                                    <div class="col-12">
-                                      <h5 class="form-label">00/00/0000</h5>
-                                    </div>
-                                  </div>
-
+                                <div class="container mt-2">
+                                  <table class="table table-bordered">
+                                      <tbody>
+                                          <tr>
+                                              <th>Nro de Providencia</th>
+                                              <td><?php echo $valor['NroProvi']; ?></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Sujeto Pasivo</th>
+                                              <td><?php echo $valor['sujetoP']; ?></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Rif</th>
+                                              <td><?php echo $valor['RifSP']; ?></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Domicilio Fiscal</th>
+                                              <td><?php echo $valor['DomicilioFiscal']; ?></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Fiscal Asignado</th>
+                                              <td><?php echo $valor['nombre_user']; ?></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Fecha de registro</th>
+                                              <td>00/00/0000</td>
+                                          </tr>
+                                          <tr>
+                                              <th>Fecha de Despacho</th>
+                                              <td>00/00/0000</td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                   </div>
@@ -227,8 +249,10 @@
                     </tbody>
                     <tfooter>
                       <tr>
-                        <th scope="col">Nro de Expediente</th>
+                      <th scope="col">Nro de Expediente</th>
                         <th scope="col">Fiscal Asignado</th>
+                        <th scope="col">División</th>
+                        <th scope="col">Área</th>
                         <th scope="col">Supervisor asignado</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Cambiar Estado</th>
@@ -245,9 +269,12 @@
         </div>
     </section>
   </main><!-- End #main -->
+  
   <?php include_once "bin/component/footer.php";?>
   <script src="content/js/Expedientes.js"></script>
   <script>
+
+
     document.addEventListener("DOMContentLoaded", function() {
       var supervisorInput = document.getElementById("supervisor");
       
