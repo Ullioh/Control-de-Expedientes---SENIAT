@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-12-2023 a las 19:46:05
--- Versión del servidor: 10.1.37-MariaDB
--- Versión de PHP: 7.0.33
+-- Tiempo de generación: 28-12-2023 a las 14:51:47
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -32,14 +31,173 @@ CREATE TABLE `area` (
   `id` int(11) NOT NULL,
   `nombrearea` varchar(40) NOT NULL,
   `id_division` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `area`
 --
 
 INSERT INTO `area` (`id`, `nombrearea`, `id_division`) VALUES
-(1, 'Informatica', 1);
+(1, 'Informatica', 1),
+(2, 'Área de Recursos Humanos', 1),
+(3, 'Área de Bienes Nacionales', 1),
+(4, 'Despacho de la División de Administració', 1),
+(5, 'Área de Compras', 1),
+(6, 'Área de Almacén ', 1),
+(7, 'Área de Presupuesto', 1),
+(8, 'Área de Contabilidad', 1),
+(9, 'Área de Tesorería ', 1),
+(10, 'Coordinación de Infraestructura y Servic', 1),
+(11, 'Área de Viáticos ', 1),
+(12, 'Despacho de Gerencia', 2),
+(13, 'Resguardo', 2),
+(14, 'Seguridad', 2),
+(15, 'Despacho Asistencia al Contribuyente', 3),
+(16, 'Área de Prensa', 3),
+(17, 'Área De Cobranzas', 4),
+(18, 'Modulo de Inserción', 4),
+(19, 'Modulo Exoneración', 4),
+(20, 'Modulo de Remisión', 4),
+(21, 'Registro de Cta./Corriente', 4),
+(22, 'Despacho División  de Recaudación ', 4),
+(23, 'Modulo de Retenciones', 4),
+(24, 'Entes Públicos ', 4),
+(25, 'Área de Sucesiones', 4),
+(26, 'Modulo Investigación Patrimonial', 4),
+(27, 'Área de Rif', 4),
+(28, 'Área de Licores', 4),
+(29, 'Liquidación ', 4),
+(30, 'Reintegro y Devoluciones', 4),
+(31, 'Timbres Fiscales', 4),
+(32, 'Despacho Fiscalización', 5),
+(33, 'Fiscalización General', 5),
+(34, 'Avaluo', 5),
+(35, 'Selección Previa', 5),
+(36, 'Deberes Formales', 5),
+(37, 'Beneficios Fiscales', 5),
+(38, 'Fondo y Semi Fondo', 5),
+(39, 'Planificación y Control de Gestión ', 5),
+(40, 'Despacho División de Sumario', 6),
+(41, 'Área de Sustanciación de Sumario', 6),
+(42, 'Área Cobro Judicial', 7),
+(43, 'Recursos Administrativo y Jurídico ', 7),
+(44, 'Despacho de la División', 7),
+(45, 'Contencioso Tributario', 7),
+(46, 'Sustanciación', 7),
+(47, 'Área de Notificación', 8),
+(48, 'Área de Vivienda Principal', 8),
+(49, 'Área de Archivo General', 8),
+(50, 'Área de Correspondencia', 8),
+(51, 'Despacho de la División', 8),
+(52, 'Área Control de Obligación', 9),
+(53, 'Cobranza', 9),
+(54, 'Área Control Bancario', 9),
+(55, 'Asistencia al Contribuyente', 9),
+(56, 'Despacho de la División', 9),
+(57, 'Modulo de Correcciones y Análisis de Cue', 9),
+(58, 'Contribuyentes Especiales Punto Fijo', 9);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `area_expediente`
+--
+
+CREATE TABLE `area_expediente` (
+  `id` int(11) NOT NULL,
+  `nombre_area` varchar(40) NOT NULL,
+  `id_division_expediente` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `area_expediente`
+--
+
+INSERT INTO `area_expediente` (`id`, `nombre_area`, `id_division_expediente`) VALUES
+(1, 'Informatica', 1),
+(2, 'Área de Recursos Humanos', 1),
+(3, 'Área de Bienes Nacionales', 1),
+(4, 'Despacho División de Administración', 1),
+(5, 'Área de Compras', 1),
+(6, 'Área de Almacén ', 1),
+(7, 'Área de Presupuesto', 1),
+(8, 'Área de Contabilidad', 1),
+(9, 'Área de Tesorería ', 1),
+(10, 'Coordinación de Infraestructura y Servic', 1),
+(11, 'Área de Viáticos ', 1),
+(12, 'Despacho de Gerencia', 2),
+(13, 'Resguardo', 2),
+(14, 'Seguridad', 2),
+(15, 'Despacho Asistencia al Contribuyente', 3),
+(16, 'Área de Prensa', 3),
+(17, 'Área De Cobranzas', 4),
+(18, 'Modulo de Inserción', 4),
+(19, 'Modulo Exoneración', 4),
+(20, 'Modulo de Remisión', 4),
+(21, 'Registro de Cta./Corriente', 4),
+(22, 'Despacho División  de Recaudación ', 4),
+(23, 'Modulo de Retenciones', 4),
+(24, 'Entes Públicos ', 4),
+(25, 'Área de Sucesiones', 4),
+(26, 'Modulo Investigación Patrimonial', 4),
+(27, 'Área de Rif', 4),
+(28, 'Área de Licores', 4),
+(29, 'Liquidación ', 4),
+(30, 'Reintegro y Devoluciones', 4),
+(31, 'Timbres Fiscales', 4),
+(32, 'Despacho Fiscalización', 5),
+(33, 'Fiscalización General', 5),
+(34, 'Avaluo', 5),
+(35, 'Selección Previa', 5),
+(36, 'Deberes Formales', 5),
+(37, 'Beneficios Fiscales', 5),
+(38, 'Fondo y Semi Fondo', 5),
+(39, 'Planificación y Control de Gestión ', 5),
+(40, 'Despacho División de Sumario', 6),
+(41, 'Área de Sustanciación de Sumario', 6),
+(42, 'Área Cobro Judicial', 7),
+(43, 'Recursos Administrativo y Jurídico ', 7),
+(44, 'Despacho de la División', 7),
+(45, 'Contencioso Tributario', 7),
+(46, 'Sustanciación', 7),
+(47, 'Área de Notificación', 8),
+(48, 'Área de Vivienda Principal', 8),
+(49, 'Área de Archivo General', 8),
+(50, 'Área de Correspondencia', 8),
+(51, 'Despacho de la División', 8),
+(52, 'Área Control de Obligación', 9),
+(53, 'Cobranza', 9),
+(54, 'Área Control Bancario', 9),
+(55, 'Asistencia al Contribuyente', 9),
+(56, 'Despacho de la División', 9),
+(57, 'Modulo de Correcciones y Análisis de Cue', 9),
+(58, 'Contribuyentes Especiales Punto Fijo', 9);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `bitacora_expediente`
+--
+
+CREATE TABLE `bitacora_expediente` (
+  `id` int(11) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `movimiento_de_expediante` varchar(100) NOT NULL,
+  `usuario` varchar(50) NOT NULL,
+  `nro_expediente` varchar(50) NOT NULL,
+  `destino_expediendte` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `bitacora_expediente`
+--
+
+INSERT INTO `bitacora_expediente` (`id`, `fecha`, `movimiento_de_expediante`, `usuario`, `nro_expediente`, `destino_expediendte`) VALUES
+(1, '2023-12-28 13:40:59', 'Se despacho el expediente de la División de Fiscalizacíon a la División de Sumario Administrativo.', '28055655, Cesar Vides', '23345435', 'División de Sumario Administrativo'),
+(2, '2023-12-28 13:41:27', 'Se despacho el expediente de la División de Sumario Administrativo a la División de Fiscalizacíon.', '28055655, Cesar Vides', '23345435', 'División de Fiscalizacíon'),
+(3, '2023-12-28 13:41:51', 'Se despacho el expediente de la División de Fiscalizacíon a la División de Tramitaciones.', '28055655, Cesar Vides', '23345435', 'División de Tramitaciones'),
+(4, '2023-12-28 13:44:49', 'Se despacho el expediente de la División de Fiscalizacíon a la División de Sumario Administrativo.', '28055655, Cesar Vides', '23345435345345', 'División de Sumario Administrativo'),
+(5, '2023-12-28 13:45:37', 'Se despacho el expediente de la División de Sumario Administrativo a la División de Tramitaciones.', '28055655, Cesar Vides', '23345435345345', 'División de Tramitaciones');
 
 -- --------------------------------------------------------
 
@@ -50,14 +208,48 @@ INSERT INTO `area` (`id`, `nombrearea`, `id_division`) VALUES
 CREATE TABLE `division` (
   `id` int(11) NOT NULL,
   `nombrediv` varchar(80) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `division`
 --
 
 INSERT INTO `division` (`id`, `nombrediv`) VALUES
-(1, 'Administración');
+(1, 'Administracion'),
+(2, 'Gerencia Regional de Tributos Internos'),
+(3, 'División Asistencia al Contribuyente'),
+(4, 'División de Recaudación'),
+(5, 'División de Fiscalizacíon'),
+(6, 'División de Sumario Administrativo'),
+(7, 'División de Jurídico Tributario '),
+(8, 'División de Tramitaciones'),
+(9, 'División de Contribuyentes Especiales');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `division_expediente`
+--
+
+CREATE TABLE `division_expediente` (
+  `id` int(11) NOT NULL,
+  `nombre_division` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `division_expediente`
+--
+
+INSERT INTO `division_expediente` (`id`, `nombre_division`) VALUES
+(1, 'Administracion'),
+(2, 'Gerencia Regional de Tributos Internos'),
+(3, 'División Asistencia al Contribuyente'),
+(4, 'División de Recaudación'),
+(5, 'División de Fiscalizacíon'),
+(6, 'División de Sumario Administrativo'),
+(7, 'División de Jurídico Tributario '),
+(8, 'División de Tramitaciones'),
+(9, 'División de Contribuyentes Especiales');
 
 -- --------------------------------------------------------
 
@@ -68,7 +260,7 @@ INSERT INTO `division` (`id`, `nombrediv`) VALUES
 CREATE TABLE `entorno_sistema` (
   `id` int(11) NOT NULL,
   `nombre` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -79,7 +271,15 @@ CREATE TABLE `entorno_sistema` (
 CREATE TABLE `estado_expediente` (
   `id` int(11) NOT NULL,
   `estado_exp` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_expediente`
+--
+
+INSERT INTO `estado_expediente` (`id`, `estado_exp`) VALUES
+(1, 'En Revisión'),
+(2, 'En proceso');
 
 -- --------------------------------------------------------
 
@@ -93,8 +293,18 @@ CREATE TABLE `expedientes` (
   `sujetoP` varchar(40) NOT NULL,
   `RifSP` varchar(12) NOT NULL,
   `DomicilioFiscal` varchar(100) NOT NULL,
-  `id_estado_expedientes` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_area_expediente` int(11) DEFAULT NULL,
+  `id_estado_expedientes` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `expedientes`
+--
+
+INSERT INTO `expedientes` (`id`, `NroProvi`, `sujetoP`, `RifSP`, `DomicilioFiscal`, `id_area_expediente`, `id_estado_expedientes`) VALUES
+(21, '111111111', 'Cesar Vides', 'j-213123213', 'asdsadsa', 23, 1),
+(22, '23345435', 'Cesar Vides', 'j-213123213', 'asdsadas', 49, 2),
+(23, '23345435345345', 'Cesar Vides', 'j-213123213', 'asdasdasd', 49, 1);
 
 -- --------------------------------------------------------
 
@@ -110,7 +320,7 @@ CREATE TABLE `permiso` (
   `editar` varchar(40) NOT NULL,
   `id_rol` int(11) NOT NULL,
   `id_entorno` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -121,7 +331,7 @@ CREATE TABLE `permiso` (
 CREATE TABLE `rol` (
   `id` int(11) NOT NULL,
   `nombrerol` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -137,17 +347,15 @@ CREATE TABLE `user` (
   `nombre_rol` varchar(40) NOT NULL,
   `id_expedientes` int(11) DEFAULT NULL,
   `password` varchar(12) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `user`
 --
 
 INSERT INTO `user` (`id`, `cedula_user`, `nombre_user`, `id_area`, `nombre_rol`, `id_expedientes`, `password`) VALUES
-(2, 28055655, 'Cesar Vides', 1, 'Administrador', 1, '123123'),
-(3, 28055651, 'Alejandro Vides', 1, 'Fiscal', 1, '123123'),
-(4, 27209480, 'Julio Linarez', 1, 'Super Usuario', NULL, '0000'),
-(7, 28020829, 'katiuska', 1, 'administrador', NULL, '123123');
+(2, 28055655, 'Cesar Vides', 1, 'Fiscal', 1, '123123'),
+(3, 28055651, 'Alejandro Vides', 1, 'Fiscal', 1, '123123');
 
 -- --------------------------------------------------------
 
@@ -158,8 +366,18 @@ INSERT INTO `user` (`id`, `cedula_user`, `nombre_user`, `id_area`, `nombre_rol`,
 CREATE TABLE `userxexpediente` (
   `id` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `id_expediente` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_expediente` int(11) NOT NULL,
+  `supervisor` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `userxexpediente`
+--
+
+INSERT INTO `userxexpediente` (`id`, `id_user`, `id_expediente`, `supervisor`) VALUES
+(17, 2, 21, 'Cesar Vides'),
+(18, 2, 22, '28055655, Cesar Vides'),
+(19, 3, 23, '28055655, Cesar Vides');
 
 --
 -- Índices para tablas volcadas
@@ -173,9 +391,28 @@ ALTER TABLE `area`
   ADD KEY `id_division` (`id_division`);
 
 --
+-- Indices de la tabla `area_expediente`
+--
+ALTER TABLE `area_expediente`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_division_expedientes` (`id_division_expediente`);
+
+--
+-- Indices de la tabla `bitacora_expediente`
+--
+ALTER TABLE `bitacora_expediente`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `division`
 --
 ALTER TABLE `division`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `division_expediente`
+--
+ALTER TABLE `division_expediente`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -195,7 +432,8 @@ ALTER TABLE `estado_expediente`
 --
 ALTER TABLE `expedientes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_estado_expedientes` (`id_estado_expedientes`);
+  ADD KEY `id_estado_expedientes` (`id_estado_expedientes`),
+  ADD KEY `id_area_expedientes` (`id_area_expediente`);
 
 --
 -- Indices de la tabla `permiso`
@@ -235,13 +473,31 @@ ALTER TABLE `userxexpediente`
 -- AUTO_INCREMENT de la tabla `area`
 --
 ALTER TABLE `area`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+
+--
+-- AUTO_INCREMENT de la tabla `area_expediente`
+--
+ALTER TABLE `area_expediente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+
+--
+-- AUTO_INCREMENT de la tabla `bitacora_expediente`
+--
+ALTER TABLE `bitacora_expediente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `division`
 --
 ALTER TABLE `division`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `division_expediente`
+--
+ALTER TABLE `division_expediente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `entorno_sistema`
@@ -253,13 +509,13 @@ ALTER TABLE `entorno_sistema`
 -- AUTO_INCREMENT de la tabla `estado_expediente`
 --
 ALTER TABLE `estado_expediente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `expedientes`
 --
 ALTER TABLE `expedientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso`
@@ -283,7 +539,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `userxexpediente`
 --
 ALTER TABLE `userxexpediente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restricciones para tablas volcadas
@@ -296,9 +552,16 @@ ALTER TABLE `area`
   ADD CONSTRAINT `area_ibfk_1` FOREIGN KEY (`id_division`) REFERENCES `division` (`id`);
 
 --
+-- Filtros para la tabla `area_expediente`
+--
+ALTER TABLE `area_expediente`
+  ADD CONSTRAINT `area_expediente_ibfk_1` FOREIGN KEY (`id_division_expediente`) REFERENCES `division_expediente` (`id`);
+
+--
 -- Filtros para la tabla `expedientes`
 --
 ALTER TABLE `expedientes`
+  ADD CONSTRAINT `expedientes_ibfk_1` FOREIGN KEY (`id_area_expediente`) REFERENCES `area_expediente` (`id`),
   ADD CONSTRAINT `fk_permisosEXP` FOREIGN KEY (`id_estado_expedientes`) REFERENCES `estado_expediente` (`id`);
 
 --
