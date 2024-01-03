@@ -6,7 +6,14 @@ document.getElementById("reporte_expediente").onclick = function(){
 }
 
 function enviarAjax(datos) {
-
+    var toastMixin = Swal.mixin({
+        showConfirmButton: false,
+        width: 450,
+        padding: '3.5em',
+        timer: 2000,
+        timerProgressBar: true,
+        allowOutsideClick: false
+      });
     $.ajax({
       url: "",
       type: "POST",
@@ -16,7 +23,13 @@ function enviarAjax(datos) {
       cache: false,
       success: (response) => {
       var datos  = JSON.parse(response); 
-
+      if (Object.keys(datos).length === 0) {
+        toastMixin.fire({
+            title: "Expedientes:",
+            text: "No hay movimientos del expediente.",
+            icon: "warning"
+          });
+      }
       var datosProcesados = [];
       datos.forEach(function (item) {
           // Convierte la cadena de fecha a un objeto de fecha de JavaScript
@@ -28,7 +41,8 @@ function enviarAjax(datos) {
               y: 1, // Puedes ajustar esto según tus necesidades
               name: item.destino_expediendte,
               movimiento_de_expediante: item.movimiento_de_expediante,
-              fecha: item.fecha_formateada
+              fecha: item.fecha_formateada,
+              responsable: item.usuario
           });
       });
 
@@ -68,7 +82,7 @@ Highcharts.chart('chart-container', {
     }],
     tooltip: {
         formatter: function () {
-            return 'División: ' + this.point.name + '<br>Movimiento: ' + this.point.movimiento_de_expediante + '<br>Fecha: ' + this.point.fecha;
+            return 'Ubicación actual del expediente: ' + this.point.name + '<br>Movimiento anterior: ' + this.point.movimiento_de_expediante + '<br>Fecha del movimiento: ' + this.point.fecha + '<br>Responsable: ' + this.point.responsable;
         }
     }
 });

@@ -60,7 +60,9 @@
                           <option value="0">--Seleccione--</option>
                           <option value="Super Usuario">Super Usuario</option>
                           <option value="Administrador">Administrador</option>
+                          <option value="Supervisor">Supervisor</option>
                           <option value="Fiscal">Fiscal</option>
+                          <option value="Ponente">Ponente</option>
                         </select>
                         <spam id="sAddFiscal"></spam>
                       </div>

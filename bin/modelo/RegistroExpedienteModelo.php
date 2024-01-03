@@ -223,23 +223,48 @@ class RegistroExpedienteModelo extends connectDB
         } catch (Exception $e) {
             return $e->getMessage();
         }
+
+        $resultado1 = $this->conex->prepare("SELECT * FROM user,area,division WHERE user.id_area = area.id AND area.id_division = division.id AND division.id = '$id_division' AND user.nombre_rol = 'Supervisor'");
+        $respuestaArreglo1 = [];
+        try {
+            $resultado1->execute();
+            $respuestaArreglo1 = $resultado1->fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     
         // Generar las opciones del select
         $optionsHTML = '';
+        $optionsHTML1 = '';
         foreach ($respuestaArreglo as $fila) {
             $optionsHTML .= '<option value="' . $fila['id'] . '">' . $fila['nombre_area'] . '</option>';
         }
+
+        foreach ($respuestaArreglo1 as $fila1) {
+            $optionsHTML1 .= '<option value="' . $fila1['cedula_user'] .", ".$fila1['nombre_user']. '">' . $fila1['nombre_user'] . '</option>';
+        }
     
-        // Incorporar el select en el HTML
-        $selectHTML = '<div class="input-group mb-1">';
+        $selectHTML = '<div class="input-group mb-3">';
         $selectHTML .= '<label class="input-group-text" for="id_area">Área</label>';
         $selectHTML .= '<select class="form-select" id="id_area">';
         $selectHTML .= '<option value="0" selected>Seleccionar área</option>';
         $selectHTML .= $optionsHTML; // Agregar las opciones generadas dinámicamente
         $selectHTML .= '</select>';
+        $selectHTML .= '<spam id="sid_area"></spam>';
         $selectHTML .= '</div>';
+        
+        // Utilizar la misma variable para agregar el segundo select
+        $selectHTML .= '<div class="input-group mb-3">';
+        $selectHTML .= '<label class="input-group-text" for="selecsuperv">Supervisor</label>';
+        $selectHTML .= '<select class="form-select" id="selecsuperv">';
+        $selectHTML .= '<option value="0" selected>Seleccionar Supervisor</option>';
+        $selectHTML .= $optionsHTML1; // Agregar las opciones generadas dinámicamente
+        $selectHTML .= '</select>';
+        $selectHTML .= '<spam id="sselecsuperv"></spam>';
+        $selectHTML .= '</div>';
+        
         $selectHTML .= '<div class="d-flex justify-content-center" id="enviar_expediente"><button type="button" onclick="enviar_expediente()" class="btn btn-outline-primary">Despachar expediente</button></div>';
-    
+        
         // Retornar el select HTML
         return $selectHTML;
     }
@@ -260,7 +285,7 @@ class RegistroExpedienteModelo extends connectDB
     
     public function listar_fiscal()
     {
-        $resultado = $this->conex->prepare("SELECT * FROM user WHERE nombre_rol = 'Fiscal'");
+        $resultado = $this->conex->prepare("SELECT *,user.id as id_usuario FROM user,area,division WHERE user.id_area = area.id AND area.id_division = division.id AND nombre_rol = 'Fiscal' AND division.nombrediv = 'División de Fiscalizacíon'");
         $respuestaArreglo = [];
         try {
             $resultado->execute();

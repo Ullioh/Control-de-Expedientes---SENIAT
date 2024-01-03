@@ -253,7 +253,7 @@ document.getElementById("regis_select_division").onchange = function(){
   regis_buscar_division_area(datos);
 }
 
-document.getElementById("select_division").onchange = function(){
+function cambiardivision() {
   var datos = new FormData();
   datos.append("accion", "buscar_area");
   datos.append("id_division", document.getElementById("select_division").value);
@@ -261,13 +261,17 @@ document.getElementById("select_division").onchange = function(){
 }
 
 function enviar_expediente(){
+  a = valida_registrar1();
+  if (a != "") {
+  }else {
   var datos = new FormData();
   datos.append("accion", "update_area_expediente");
   datos.append("id_expediente", document.getElementById("expedi_status").value);
   datos.append("nro_expediente", document.getElementById("nro_expediente").value);
-  datos.append("supervisor", document.getElementById("supervisor").value);
+  datos.append("supervisor", document.getElementById("selecsuperv").value);
   datos.append("id_area", document.getElementById("id_area").value);
   enviaAjax(datos);
+  }
 }
 /*--------------------FIN DE CRUD DEL MODULO----------------------*/
 
@@ -434,6 +438,49 @@ function valida_registrar() {
     error = true;
   }
   return error;
+}
+
+function valida_registrar1() {
+  var error1 = false;
+  if(document.getElementById("select_division").value == 0){
+    document.getElementById("sselect_division").innerHTML ="* Seleccione un división";
+    document.getElementById("sselect_division").style.color = "red";
+    document.getElementById("select_division").classList.add("is-invalid");
+  }else{
+
+    if(document.getElementById("id_area").value == 0){
+      document.getElementById("sid_area").innerHTML ="* Seleccione un área";
+      document.getElementById("sid_area").style.color = "red";
+      document.getElementById("id_area").classList.add("is-invalid");
+    }else{
+      document.getElementById("sid_area").innerHTML ="";
+      document.getElementById("id_area").classList.remove("is-invalid");
+      document.getElementById("id_area").classList.add("is-valid");
+    }
+
+    if(document.getElementById("selecsuperv").value == 0){
+      document.getElementById("sselecsuperv").innerHTML ="* Seleccione un supervisor";
+      document.getElementById("sselecsuperv").style.color = "red";
+      document.getElementById("selecsuperv").classList.add("is-invalid");
+    }else{
+      document.getElementById("sselecsuperv").innerHTML ="";
+      document.getElementById("selecsuperv").classList.remove("is-invalid");
+      document.getElementById("selecsuperv").classList.add("is-valid");
+    }
+  
+    document.getElementById("sselect_division").innerHTML ="";
+    document.getElementById("select_division").classList.remove("is-invalid");
+    document.getElementById("select_division").classList.add("is-valid");
+  }
+  if(
+    document.getElementById("select_division").value == 0 || 
+    document.getElementById("id_area").value == 0 || 
+    document.getElementById("selecsuperv").value == 0 
+  ){
+    //variable==0, indica que hubo error en la validacion de la etiqueta
+    error1 = true;
+  }
+  return error1;
 }
 
 function cargar_datos(id_expediente,id_usuario) {

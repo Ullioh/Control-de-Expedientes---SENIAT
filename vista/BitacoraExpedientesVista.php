@@ -33,7 +33,8 @@
                         <th scope="col">Fecha</th>
                         <th scope="col">Supervisor del expediente</th>
                         <th scope="col">Nro expediente</th>
-                        <th scope="col">Movimiento del expediente</th>
+                        <th scope="col">Movimiento anterior del expediente</th>
+                        <th scope="col">Ubicación actual del expediente</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -51,6 +52,9 @@
                         <td>
                           <?php echo $valor['movimiento_de_expediante']; ?>
                         </td>
+                        <td>
+                          <?php echo $valor['destino_expediendte']; ?>
+                        </td>
                         <?php } ?>
                     </tbody>
                     <tfooter>
@@ -58,7 +62,8 @@
                         <th scope="col">Fecha</th>
                         <th scope="col">Supervisor del expediente</th>
                         <th scope="col">Nro expediente</th>
-                        <th scope="col">Movimiento del expediente</th>
+                        <th scope="col">Movimiento anterior del expediente</th>
+                        <th scope="col">Ubicación actual del expediente</th>
                       </tr>
                     </tfooter>
                   </table>

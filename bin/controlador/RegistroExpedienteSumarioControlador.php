@@ -132,9 +132,14 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
             exit;
         }else if ($accion == 'update_area_expediente') {
             $response = $Expediente->actualizar_area_expediente($_POST['id_area'],$_POST['id_expediente']);
+
             $division_despacho = $bitacoraExpedientes->buscar_division($_POST['id_area']);
+            $area_despacho = $bitacoraExpedientes->buscar_area($_POST['id_area']);
+
             $movimiento_expediente = "Se despacho el expediente de la ". $division_actual . " a la ". $division_despacho[0]["nombre_division"].".";
-            $bitacoraExpedientes->registrar_bitacora($_POST['supervisor'],$_POST['nro_expediente'],$movimiento_expediente,$division_despacho[0]["nombre_division"]);
+            $destino = "División: ".$division_despacho[0]["nombre_division"]. ", ". $area_despacho[0]["nombre_area"].".";
+
+            $bitacoraExpedientes->registrar_bitacora($_POST['supervisor'],$_POST['nro_expediente'],$movimiento_expediente,$destino);
             if ($response['resultado']== 1) {
                 echo json_encode([
                     'estatus' => '1',

@@ -18,6 +18,9 @@ class BitacoraExpedientesModelo extends connectDB
                 '$nro_expediente',
                 '$destino'
             )");
+            $this->conex->query("UPDATE userxexpediente
+            SET supervisor = '$supervisor'
+            WHERE id_expediente IN (SELECT id FROM expedientes WHERE NroProvi = '$nro_expediente')");
             } catch (Exception $e) {
                 return $e->getMessage();
             }
@@ -27,6 +30,18 @@ class BitacoraExpedientesModelo extends connectDB
 
     public function buscar_division($area){
         $resultado = $this->conex->prepare("SELECT * FROM area_expediente, division_expediente  WHERE area_expediente.id_division_expediente = division_expediente.id AND area_expediente.id = '$area'");
+        $respuestaArreglo = [];
+        try {
+            $resultado->execute();
+            $respuestaArreglo = $resultado->fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return $respuestaArreglo;
+    }
+
+    public function buscar_area($area){
+        $resultado = $this->conex->prepare("SELECT * FROM area_expediente WHERE id = '$area'");
         $respuestaArreglo = [];
         try {
             $resultado->execute();

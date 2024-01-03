@@ -66,13 +66,15 @@
                             <spam id="sDomiFI"></spam>
                           </div>
                           <div class="col-12">
-                            <label for="AddFiscal" class="form-label">Asignar Fiscal</label>
-                            <select class="form-control" id="AddFiscal">
-                            <option value="0" selected>--Seleccione--</option>
-                            <?php foreach ($r2 as $key => $value) {?>
-                              <option value="<?=$value['id'];?>"><?=$value['nombre_user'];?></option>
-                            <?php }?>
-                          </select>
+                            <div class="input-group">
+                              <label class="input-group-text" for="AddFiscal">Asignar fiscal</label>
+                              <select class="form-select" id="AddFiscal">
+                                <option value="0" selected>Seleccionar Fiscal</option>
+                                <?php foreach ($r2 as $key => $value) {?>
+                                  <option value="<?=$value['id'];?>"><?=$value['nombre_user'];?></option>
+                                <?php }?>
+                              </select>
+                            </div>
                             <spam id="sAddFiscal"></spam>
                           </div>
                           <div class="col-12">
@@ -166,12 +168,13 @@
                                       <h1 class="modal-title fs-5 text-danger" id="staticBackdropLabel">Despacho de Expedientes</h1>
                                       <div class="input-group mb-1">
                                         <label class="input-group-text" for="select_division">División</label>
-                                        <select class="form-select" id="select_division">
-                                          <option selected>Seleccionar división</option>
+                                        <select class="form-select" id="select_division" onchange="cambiardivision()">
+                                          <option value="0" selected>Seleccionar división</option>
                                           <?php foreach ($r3 as $key => $value) {?>
                                             <option value="<?=$value['id'];?>"><?=$value['nombre_division'];?></option>
                                           <?php }?>
                                         </select>
+                                        <spam id="sselect_division"></spam>
                                       </div>
                                       <div id="seleccionar_area">
                                       </div>
