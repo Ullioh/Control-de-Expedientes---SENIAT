@@ -18,7 +18,7 @@
       <div class="row">
 
         <!-- Left side columns -->
-        <div class="col-lg-8">
+        <div class="col-lg-12">
           <div class="row">
 
             <!-- Card -->
@@ -32,7 +32,7 @@
                       <i class="ri-exchange-fill"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>        
+                      <h6><?php echo $r1[0]['cantidadex'];?></h6>        
                     </div> </div>
                 </div> </div> </div><!-- End Card -->
 
@@ -47,7 +47,7 @@
                       <i class="ri-exchange-fill"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>        
+                      <h6><?php echo $r3[0]['cantidadex'];?></h6>        
                     </div> </div>
                 </div> </div> </div><!-- End Card -->
 
@@ -62,7 +62,7 @@
                       <i class="ri-exchange-fill"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>        
+                      <h6><?php echo $r2[0]['cantidadex'];?></h6>        
                     </div> </div>
                 </div> </div> </div><!-- End Card -->
 
@@ -77,7 +77,7 @@
                       <i class="ri-exchange-fill"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>        
+                      <h6><?php echo $r4[0]['cantidadex'];?></h6>        
                     </div> </div>
                 </div> </div> </div><!-- End Card -->
 
@@ -85,25 +85,7 @@
         </div><!-- End Left side columns -->
 
         <!-- Right side columns -->
-        <div class="col-lg-4">
 
-          <!-- Recent Activity -->
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Noticias</h5>
-
-              <div class="activity">
-
-              <h1 class="col-xxl-4 col-xl-12">Alguna Noticia o informacion relevante para la Compañia.</h1>
-
-              </div>
-
-            </div>
-          </div><!-- End Recent Activity -->
-
-         
-
-            </div>
           </div><!-- End News & Updates -->
 
         </div><!-- End Right side columns -->
