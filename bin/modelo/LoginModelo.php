@@ -75,7 +75,7 @@ class loginModelo extends connectDB
 
     public function datos_UserU()
     {
-        $resultado = $this->conex->prepare("SELECT * FROM user WHERE cedula_user ='$this->user' AND password ='$this->password'");
+        $resultado = $this->conex->prepare("SELECT *,user.id as id_usuario FROM user,area,division WHERE user.id_area = area.id AND area.id_division = division.id AND cedula_user ='$this->user' AND password ='$this->password'");
         try {
             $resultado->execute();
             $respuestaArreglo = $resultado->fetchAll();

@@ -18,6 +18,7 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 if (is_file("vista/" . $pagina . "Vista.php")) {
+    var_dump($_SESSION['usuario']);
     require_once "vista/" . $pagina . "Vista.php";
 } else {
     echo "pagina en construccion";

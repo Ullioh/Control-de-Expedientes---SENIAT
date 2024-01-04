@@ -22,11 +22,11 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Lista de Expedientes Fiscalizacion</h5>
-              
+              <?php if($_SESSION['usuario']["nombre_rol"] == "Supervisor" || $_SESSION['usuario']["nombre_rol"] == "Administrador" || $_SESSION['usuario']["nombre_rol"] == "Super Usuario" ) { ?>
               <button type="button" class="btn btn-primary m-1" id="nuevo">
                 Registrar Expediente
               </button>
-
+              <?php } ?>
               <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable">
                   <div class="modal-content">
@@ -116,8 +116,12 @@
                         <th scope="col">Estado</th>
                         <th scope="col">Cambiar Estado</th>
                         <th>Detalles de Expediente</th>
+                        <?php if($_SESSION['usuario']["nombre_rol"] == "Supervisor" || $_SESSION['usuario']["nombre_rol"] == "Administrador" || $_SESSION['usuario']["nombre_rol"] == "Super Usuario" ) { ?>
                         <th>Editar Expediente</th>
+                        <?php } ?>
+                        <?php if($_SESSION['usuario']["nombre_rol"] == "Super Usuario" ) { ?>
                         <th>Eliminar Expediente</th>
+                        <?php } ?>
                       </tr>
                     </thead>
                     <tbody>
@@ -165,6 +169,7 @@
                                       <button type="button" id="btnRevision" class="btn btn-success rounded-pill" onclick="cambiarEstado(this)">En revision</button> 
                                       <!-- <button type="button" class="btn btn-success rounded-pill">Despachar</button>
                                       <div class="modal-footer"> -->
+                                      <?php if($_SESSION['usuario']["nombre_rol"] == "Supervisor" || $_SESSION['usuario']["nombre_rol"] == "Administrador" || $_SESSION['usuario']["nombre_rol"] == "Super Usuario" ) { ?>
                                       <h1 class="modal-title fs-5 text-danger" id="staticBackdropLabel">Traslado de Expediente de Área</h1>
                                       <div class="input-group mb-1">
                                         <label class="input-group-text" for="select_Area">Area</label>
@@ -188,6 +193,7 @@
                                       </div>
                                       <div id="seleccionar_area">
                                       </div>
+                                      <?php } ?>
                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                     </form>
 
@@ -249,15 +255,18 @@
                             </div>
                           </div>  
                         </td>  
+                        <?php if($_SESSION['usuario']["nombre_rol"] == "Supervisor" || $_SESSION['usuario']["nombre_rol"] == "Administrador" || $_SESSION['usuario']["nombre_rol"] == "Super Usuario" ) { ?>
                         <td> 
                         <button type="button" class="btn btn-primary ri-edit-line" onclick="cargar_datos(<?=$valor['id_expedientes'];?>, <?=$valor['id_usuario'];?>);">
                         </button>
                         </td>
+                        <?php } ?>
+                        <?php if($_SESSION['usuario']["nombre_rol"] == "Super Usuario" ) { ?>
                         <td>
-                          </button>
-                            <button type="button" class="btn btn-danger ri-delete-bin-2-line" onclick="eliminar(<?=$valor['id_expedientes'];?>, <?=$valor['id_usuario'];?>);"> 
+                          <button type="button" class="btn btn-danger ri-delete-bin-2-line" onclick="eliminar(<?=$valor['id_expedientes'];?>, <?=$valor['id_usuario'];?>);"> 
                           </button> 
                         </td>
+                        <?php } ?>
                         <?php } ?>
                     </tbody>
                     <tfooter>
@@ -270,8 +279,12 @@
                         <th scope="col">Estado</th>
                         <th scope="col">Cambiar Estado</th>
                         <th>Detalles de Expediente</th>
+                        <?php if($_SESSION['usuario']["nombre_rol"] == "Supervisor" || $_SESSION['usuario']["nombre_rol"] == "Administrador" || $_SESSION['usuario']["nombre_rol"] == "Super Usuario" ) { ?>
                         <th>Editar Expediente</th>
+                        <?php } ?>
+                        <?php if($_SESSION['usuario']["nombre_rol"] == "Super Usuario" ) { ?>
                         <th>Eliminar Expediente</th>
+                        <?php } ?>
                       </tr>
                     </tfooter>
                   </table>
