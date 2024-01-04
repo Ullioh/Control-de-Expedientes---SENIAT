@@ -127,6 +127,32 @@ class RegistroExpedienteModelo extends connectDB
         }
         return $respuesta;
     }
+    
+    public function listar_area($division)
+    {
+        $resultado = $this->conex->prepare("SELECT *, area_expediente.id as id_area FROM area_expediente,division_expediente WHERE area_expediente.id_division_expediente = division_expediente.id AND division_expediente.nombre_division = '$division'");
+        $respuestaArreglo = [];
+        try {
+            $resultado->execute();
+            $respuestaArreglo = $resultado->fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return $respuestaArreglo;
+    }
+
+    public function cambiar_area_expedient($nro_expediente ,$area_expediente)
+    {
+        try {
+            $this->conex->query("UPDATE expedientes SET id_area_expediente = '$area_expediente' WHERE NroProvi = '$nro_expediente'");
+            $respuesta["resultado"]=1;
+            $respuesta["mensaje"]="Modificación exitosa.";
+        } catch (Exception $e) {
+            $respuesta['resultado'] = 0;
+            $respuesta['mensaje'] = $e->getMessage();
+        }
+        return $respuesta;
+    }
 
     public function cambiar_estado($estado ,$id_expediente)
     {
@@ -269,19 +295,40 @@ class RegistroExpedienteModelo extends connectDB
         return $selectHTML;
     }
 
-    public function actualizar_area_expediente($id_area,$id_expediente)
+    public function actualizar_area_expediente($id_area,$id_expediente,$division_actual)
     {
-        try {
-            $this->conex->query("UPDATE expedientes SET id_area_expediente = '$id_area' WHERE id = '$id_expediente'");
-            $respuesta["resultado"]=1;
-            $respuesta["mensaje"]="Modificación exitosa.";
-        } catch (Exception $e) {
-            $respuesta['resultado'] = 0;
-            $respuesta['mensaje'] = $e->getMessage();
+        $validar_modificar = $this->validar_ubicacion($id_area, $division_actual);
+        if ($validar_modificar) {
+            $respuesta['resultado'] = 2;
+            $respuesta['mensaje'] = "El expediente no se puede despechar en la misma división.";
+        }else {
+            try {
+                $this->conex->query("UPDATE expedientes SET id_area_expediente = '$id_area' WHERE id = '$id_expediente'");
+                $respuesta["resultado"]=1;
+                $respuesta["mensaje"]="Modificación exitosa.";
+            } catch (Exception $e) {
+                $respuesta['resultado'] = 0;
+                $respuesta['mensaje'] = $e->getMessage();
+            }
         }
         return $respuesta;
     }
 
+    public function validar_ubicacion($id_area,$division_actual)
+    {
+        try {
+            $resultado = $this->conex->prepare("SELECT * FROM area_expediente,division_expediente WHERE area_expediente.id_division_expediente = division_expediente.id AND area_expediente.id = '$id_area' AND division_expediente.nombre_division = '$division_actual';");
+            $resultado->execute();
+            $fila = $resultado->fetchAll();
+            if ($fila) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+    }
     
     public function listar_fiscal()
     {

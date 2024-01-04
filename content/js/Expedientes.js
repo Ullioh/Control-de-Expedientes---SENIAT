@@ -52,11 +52,11 @@ var keyup_direccion = /^[A-ZÁÉÍÓÚa-zñáéíóú0-9,.#%$^&*:\s]{2,100}$/;
     {
       extend:    'excelHtml5',
       filename: function() {
-        return "EXCEL-Usuarios"      
+        return "EXCEL-Expedientes-Fiscalización"      
       },          
       title: function() {
         var searchString = table.search();        
-        return searchString.length? "Search: " + searchString : "Reporte de Usuarios"
+        return searchString.length? "Search: " + searchString : "Reporte de Expedientes (Fiscalización)"
       },
       text:      '<i class="fas fa-file-excel text-success"></i> ',
       titleAttr: 'Exportar a Excel',
@@ -68,11 +68,11 @@ var keyup_direccion = /^[A-ZÁÉÍÓÚa-zñáéíóú0-9,.#%$^&*:\s]{2,100}$/;
     {
       extend:    'pdfHtml5',
       filename: function() {
-        return "PDF-Usuarios"      
+        return "PDF-Expedientes-Fiscalización"      
       },          
       title: function() {
         var searchString = table.search();        
-        return searchString.length? "Search: " + searchString : "Reporte de Usuarios"
+        return searchString.length? "Search: " + searchString : "Reporte de Expedientes (Fiscalización)"
       },
       text:      '<i class="fas fa-file-pdf text-danger "></i> ',
       titleAttr: 'Exportar a PDF',
@@ -99,11 +99,11 @@ var keyup_direccion = /^[A-ZÁÉÍÓÚa-zñáéíóú0-9,.#%$^&*:\s]{2,100}$/;
     {
       extend:    'print',
       filename: function() {
-        return "Print-Usuarios"      
+        return "Print-Expedientes-Fiscalización"      
       },          
       title: function() {
         var searchString = table.search();        
-        return searchString.length? "Search: " + searchString : "Reporte de Usuarios"
+        return searchString.length? "Search: " + searchString : "Reporte de Expedientes (Fiscalización)"
       },
       text:      '<i class="fa fa-print text-info"></i> ',
       titleAttr: 'Imprimir',
@@ -493,6 +493,31 @@ function cargar_datos(id_expediente,id_usuario) {
 /*-------------------FIN DE FUNCIONES DE HERRAMIENTAS-------------------*/
 
 /*--------------------FUNCIONES CON AJAX----------------------*/
+
+function cambiar_area(){
+  Swal.fire({
+    title: "¿Está seguro de realizar cambios?",
+    text: "¡El registro se cambiara de área!",
+    icon: "warning",
+    showCloseButton: true,
+    showCancelButton: true,
+    confirmButtonColor: "#0C72C4",
+    cancelButtonColor: "#9D2323",
+    confirmButtonText: "Confirmar",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      setTimeout(function () {
+        var datos = new FormData();
+        datos.append("accion", "cambiar_area_expediente");
+        datos.append("nro_expediente", $("#nro_expediente").val());
+        datos.append("area_expediente", $("#select_Area").val());
+        enviaAjax(datos);
+      }, 10);
+    }
+  });
+}
+
 function eliminar(id_expediente, id_usuario) {
   Swal.fire({
     title: "¿Está seguro de eliminar el registro?",

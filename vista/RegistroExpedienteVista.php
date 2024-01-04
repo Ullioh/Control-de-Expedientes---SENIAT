@@ -71,7 +71,7 @@
                               <select class="form-select" id="AddFiscal">
                                 <option value="0" selected>Seleccionar Fiscal</option>
                                 <?php foreach ($r2 as $key => $value) {?>
-                                  <option value="<?=$value['id'];?>"><?=$value['nombre_user'];?></option>
+                                  <option value="<?=$value['id_usuario'];?>"><?=$value['nombre_user'];?></option>
                                 <?php }?>
                               </select>
                             </div>
@@ -165,7 +165,17 @@
                                       <button type="button" id="btnRevision" class="btn btn-success rounded-pill" onclick="cambiarEstado(this)">En revision</button> 
                                       <!-- <button type="button" class="btn btn-success rounded-pill">Despachar</button>
                                       <div class="modal-footer"> -->
-                                      <h1 class="modal-title fs-5 text-danger" id="staticBackdropLabel">Despacho de Expedientes</h1>
+                                      <h1 class="modal-title fs-5 text-danger" id="staticBackdropLabel">Traslado de Expediente de Área</h1>
+                                      <div class="input-group mb-1">
+                                        <label class="input-group-text" for="select_Area">Area</label>
+                                        <select class="form-select" id="select_Area" onchange="cambiar_area()">
+                                          <option value="0" selected>Seleccionar Área</option>
+                                          <?php foreach ($r4 as $key => $value) {?>
+                                            <option value="<?=$value['id_area'];?>"><?=$value['nombre_area'];?></option>
+                                          <?php }?>
+                                        </select>
+                                      </div>
+                                      <h1 class="modal-title fs-5 text-danger" id="staticBackdropLabel">Traslado de Expediente de División (Despacho)</h1>
                                       <div class="input-group mb-1">
                                         <label class="input-group-text" for="select_division">División</label>
                                         <select class="form-select" id="select_division" onchange="cambiardivision()">

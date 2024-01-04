@@ -130,17 +130,36 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
             echo $datos;
             return 0;
             exit;
-        }else if ($accion == 'update_area_expediente') {
-            $response = $Expediente->actualizar_area_expediente($_POST['id_area'],$_POST['id_expediente']);
-
-            $division_despacho = $bitacoraExpedientes->buscar_division($_POST['id_area']);
-            $area_despacho = $bitacoraExpedientes->buscar_area($_POST['id_area']);
-
-            $movimiento_expediente = "Se despacho el expediente de la ". $division_actual . " a la ". $division_despacho[0]["nombre_division"].".";
-            $destino = "División: ".$division_despacho[0]["nombre_division"]. ", ". $area_despacho[0]["nombre_area"].".";
-
-            $bitacoraExpedientes->registrar_bitacora($_POST['supervisor'],$_POST['nro_expediente'],$movimiento_expediente,$destino);
+        }else if ($accion == 'cambiar_area_expediente') {
+            $response = $Expediente->cambiar_area_expedient($_POST['nro_expediente'],$_POST['area_expediente']);
             if ($response['resultado']== 1) {
+                echo json_encode([
+                    'estatus' => '1',
+                    'icon' => 'success',
+                    'title' => $modulo,
+                    'message' => $response['mensaje']
+                ]);
+            }else {
+                echo json_encode([
+                    'estatus' => '2',
+                    'icon' => 'info',
+                    'title' => $modulo,
+                    'message' => $response['mensaje']
+                ]);
+            }
+            return 0;
+            exit;
+        }else if ($accion == 'update_area_expediente') {
+            $response = $Expediente->actualizar_area_expediente($_POST['id_area'],$_POST['id_expediente'],"División de Sumario Administrativo");
+
+            if ($response['resultado']== 1) {
+                $division_despacho = $bitacoraExpedientes->buscar_division($_POST['id_area']);
+                $area_despacho = $bitacoraExpedientes->buscar_area($_POST['id_area']);
+    
+                $movimiento_expediente = "Se despacho el expediente de la ". $division_actual . " a la ". $division_despacho[0]["nombre_division"].".";
+                $destino = "División: ".$division_despacho[0]["nombre_division"]. ", ". $area_despacho[0]["nombre_area"].".";
+    
+                $bitacoraExpedientes->registrar_bitacora($_POST['supervisor'],$_POST['nro_expediente'],$movimiento_expediente,$destino);
                 echo json_encode([
                     'estatus' => '1',
                     'icon' => 'success',
@@ -162,6 +181,7 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
     $r1 = $Expediente->listar();
     $r2 = $Expediente->listar_fiscal();
     $r3 = $Expediente->listar_division();
+    $r4 = $Expediente->listar_area("División de Sumario Administrativo");
     require_once "vista/" . $pagina . "Vista.php";
 } else {
     echo "pagina en construccion";
