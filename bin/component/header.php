@@ -1,3 +1,6 @@
+<?php
+use config\componentes\configSistema as configSistema;
+?>
 <header id="header" class="header fixed-top d-flex align-items-center" >
 
     <div class="d-flex align-items-center justify-content-between">
@@ -31,7 +34,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="?pagina=Perfil">
+              <a class="dropdown-item d-flex align-items-center" href="?pagina=<?php configSistema::_PERFIL_();?>">
                 <i class="bi bi-person"></i>
                 <span>Mi Perfil</span>
               </a>
@@ -50,7 +53,7 @@
             </li>
 
             <li>
-              <a href="?pagina=Login" class="dropdown-item d-flex align-items-center">
+              <a href="?pagina=<?php configSistema::_SALIR_();?>" class="dropdown-item d-flex align-items-center">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Desconectarse</span>
               </a>

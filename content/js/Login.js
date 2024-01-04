@@ -184,15 +184,26 @@ function carga() {
             var res = JSON.parse(response);
             //alert(res.title);
             if (res.estatus == 1) {
-              toastMixin.fire({
-                animation: true,
-                title: res.title,
-                text: res.message,
-                icon: res.icon,
+              var formData = new FormData();
+              formData.append("accion", "codificarURL");
+              $.ajax({
+                url: "",
+                type: "POST",
+                contentType: false,
+                data: formData,
+                processData: false,
+                cache: false,
+                success: function (response) {
+                  toastMixin.fire({
+                    title: res.title,
+                    text: res.message,
+                    icon: res.icon
+                  });
+                  setTimeout(function () {
+                    window.location.replace("?pagina="+response);
+                  }, 2000);
+              }
               });
-              setTimeout(function () {
-                window.location.href="?pagina=Principal";
-              }, 2000);
             } else if(res.estatus == 2){
               toastMixin.fire({
                 animation: true,

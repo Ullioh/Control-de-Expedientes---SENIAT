@@ -13,7 +13,7 @@ if (!is_file($config->_Dir_Model_().$pagina.$config->_MODEL_())) {
 if (is_file("vista/" . $pagina . "Vista.php")) {
 
 
-    if (isset($_POST['cedula'])&& isset($_POST['clave'])) {
+    if (isset($_POST['accion'])) {
         $accion = $_POST['accion'];
         if($accion=="ingresar"){
             $usuario = $_POST['cedula'];
@@ -43,6 +43,9 @@ if (is_file("vista/" . $pagina . "Vista.php")) {
                 ]);
                 return 0;
             }
+        }else if ($accion == 'codificarURL') {
+            echo configSistema::_PRINCIPAL_();
+            return 0;
         }else if($accion=="registrar"){
             $nombreapellido = $_POST['nombreapellido'];
             $email = $_POST['email'];
