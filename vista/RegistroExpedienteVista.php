@@ -237,14 +237,6 @@
                                               <th>Fiscal Asignado</th>
                                               <td><?php echo $valor['nombre_user']; ?></td>
                                           </tr>
-                                          <tr>
-                                              <th>Fecha de registro</th>
-                                              <td>00/00/0000</td>
-                                          </tr>
-                                          <tr>
-                                              <th>Fecha de Despacho</th>
-                                              <td>00/00/0000</td>
-                                          </tr>
                                       </tbody>
                                   </table>
                               </div>

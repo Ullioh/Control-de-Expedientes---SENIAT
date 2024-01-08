@@ -59,6 +59,17 @@ function carga() {
 
  //Validaciones de entrada login
 
+ $("#contrasena").on("keydown", function (e) {
+  if (e.which === 13 || e.keyCode === 13) {
+    // La tecla presionada es "Enter", ejecutar la función enviaAjax
+      var datos = new FormData();
+      datos.append("accion", "ingresar");
+      datos.append("cedula", $("#user").val());
+      datos.append("clave", $("#contrasena").val());
+      enviaAjax(datos);
+  }
+});
+
  $("#entrasystem").click(function (e) { 
     a = valida_entrada();
     if (a) {

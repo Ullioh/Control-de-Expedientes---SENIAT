@@ -1,4 +1,4 @@
-var keyup_nro_pro = /^(\d{4}[-\/]?){0,6}\d{2,30}$/;
+var keyup_nro_pro = /^([A-Za-z\d]{4,10}[-\/]?){0,6}[A-Za-z\d]{2,30}$/;
 var keyup_nombre = /^(([A-ZÁÉÍÓÚ]+[a-zñáéíóú.,-]*[\s]?){2,30})$/;
 var keyup_rif = /^([VEJPGvejpg]{1}-\d{8}-\d{1}|[VEJPGvejpg]{1}-\d{7}-\d{1}|[VEJPGvejpg]{1}-\d{9}|[VEJPGvejpg]{1}-\d{8})$/;
 var keyup_domicilio_fiscal = /^[A-ZÁÉÍÓÚa-zñáéíóú0-9,.#%$^&*:\s]{2,200}$/;
@@ -120,9 +120,9 @@ var keyup_direccion = /^[A-ZÁÉÍÓÚa-zñáéíóú0-9,.#%$^&*:\s]{2,100}$/;
 document.onload = carga();
 function carga() {
   /*--------------VALIDACION PARA NRO DE PROVIDENCIA--------------------*/
-  document.getElementById("NroProvidencia").maxLength = 30;
+  document.getElementById("NroProvidencia").maxLength = 100;
   document.getElementById("NroProvidencia").onkeypress = function (e) {
-    er = /^[0-9-\/]*$/;
+    er = /^[a-zA-Z0-9-\/]*$/;
     validarkeypress(er, e);
   };
   document.getElementById("NroProvidencia").onkeyup = function () {
@@ -130,7 +130,7 @@ function carga() {
       keyup_nro_pro,
       this,
       document.getElementById("sNroProvidencia"),
-      "* El formato debe ser 9999-9999-9999-9999 o 1234/1234/1234/1234 o 123456789"
+      "* El formato debe ser 9999-9999-9999-9999 o ABCDE1234/ABCDE1234/ABCDE1234/ABCDE1234 o ABCDE123456789"
     );
   };
   /*--------------FIN VALIDACION PARA NRO DE PROVIDENCIA--------------------*/
