@@ -21,6 +21,14 @@ use config\componentes\configSistema as configSistema;
         </a>
       </li><!-- End Profile Page Nav -->
 
+      <?php if($_SESSION['usuario']["nombre_rol"] == "Administrador" || $_SESSION['usuario']["nombre_rol"] == "Super Usuario" ) { ?>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="?pagina=<?php configSistema::_EX_();?>">
+          <i class="bi bi bi-layout-text-window-reverse"></i><span>Estado de Expedientes</span>
+        </a>
+      </i><!-- End Tables Nav -->
+      <?php } ?>
+
       <?php if($_SESSION['usuario']["division"] == "División de Fiscalizacíon" || $_SESSION['usuario']["nombre_rol"] == "Super Usuario" ) { ?>
       <li class="nav-item">
         <a class="nav-link collapsed"  href="?pagina=<?php configSistema::_REF_();?>">

@@ -102,6 +102,10 @@
 			echo self::Seguridad('Principal', 'codificar');
 		}
 		
+		public static function _EX_() {
+			echo self::Seguridad('RegistroExpedienteAll', 'codificar');
+		}
+
 		public static function _REA_() {
 			echo self::Seguridad('RegistroExpedienteArchivo', 'codificar');
 		}
