@@ -100,7 +100,6 @@
                   </div>
                 </div>
               </div>
-
           <div class="card border">
             <div class="table-responsive p-2">
               <div class="d-flex flex-wrap justify-content-between m-1">
@@ -125,7 +124,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($r1 as $valor) {?>
+                    <?php foreach ($r1 as $valor) { if($valor['cedula_user']==$_SESSION['usuario']["cedula"] || $_SESSION['usuario']["nombre_rol"] == "Super Usuario" || $_SESSION['usuario']["nombre_rol"] == "Administrador" || $_SESSION['usuario']["nombre_rol"] == "Supervisor"){?>
                       <tr>
                         <td> <?php echo $valor['NroProvi']; ?></td>
                         <td>
@@ -259,7 +258,7 @@
                           </button> 
                         </td>
                         <?php } ?>
-                        <?php } ?>
+                        <?php }}?>
                     </tbody>
                     <tfooter>
                       <tr>
